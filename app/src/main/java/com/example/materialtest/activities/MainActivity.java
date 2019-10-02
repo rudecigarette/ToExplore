@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.nav_login:
-                        Intent intent_Login = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent_Login);
+                    case R.id.me:
+                        Intent intent_toMe = new Intent(MainActivity.this,MeActivity.class);
+                        startActivity(intent_toMe);
                         break;
 
 

@@ -26,15 +26,24 @@ public class WelcomeActivity extends BaseActivity {
         mtimer.schedule(new TimerTask(){
             @Override
             public void run() {
-                toMain();
+                //toMain();
+                toLogin();
             }
-        },3*1000);
+        },2*1000);
     }
     /*
        跳转到MainActivity
      */
     private void toMain(){
         Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    /*
+        跳转到LoginActivity
+    */
+    private void toLogin(){
+        Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
         finish();
     }

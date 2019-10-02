@@ -6,50 +6,53 @@
     tools:context=".activities.LoginActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <include layout="@layout/nav_bar"></include>
-   <ImageView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_gravity="center_horizontal"
-       android:layout_marginTop="@dimen/marginsize"
-       android:src="@mipmap/logo"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginsize"
+        android:src="@mipmap/logo"/>
     <com.example.materialtest.Views.inputView
-        android:id="@+id/input_phone"
+        android:id="@+id/reg_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputView_height"
         android:layout_marginTop="@dimen/marginsize"
         app:input_icon="@mipmap/phone"
-        app:input_hint="手机号"
+        app:input_hint="请输入手机号"
         app:is_passward="false"
         xmlns:app="http://schemas.android.com/apk/res-auto"
 
-       />
+        />
     <View style="@style/line"></View>
 
     <com.example.materialtest.Views.inputView
-        android:id="@+id/input_passward"
+        android:id="@+id/reg_passward"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputView_height"
         app:input_icon="@mipmap/password"
-        app:input_hint="密码"
+        app:input_hint="请输入密码"
         app:is_passward="true"
         xmlns:app="http://schemas.android.com/apk/res-auto"
 
         />
     <View style="@style/line"></View>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/marginsize"
-        android:text="立即注册"
-        android:onClick="onRegisterClick"
-        android:textSize="@dimen/info_size"
-        android:textColor="@color/mainColor"
-        android:layout_gravity="center_horizontal"/>
+    <com.example.materialtest.Views.inputView
+        android:id="@+id/reg_passward2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/inputView_height"
+        app:input_icon="@mipmap/password"
+        app:input_hint="请确认密码"
+        app:is_passward="true"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        />
+    <View style="@style/line"></View>
+
 
     <Button
         style="@style/commitBtn"
         android:layout_marginTop="@dimen/marginsize"
-        android:text="登  录"
-        android:onClick="onCommitClick"/>
+        android:onClick="onRegClick"
+        android:text="注  册" />
 </LinearLayout>

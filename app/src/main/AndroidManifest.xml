@@ -14,7 +14,9 @@
         android:label="Demo_mapdrawer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.MeActivity"></activity>
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.MainActivity" />
 
         <meta-data

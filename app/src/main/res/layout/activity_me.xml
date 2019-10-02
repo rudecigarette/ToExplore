@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.MeActivity">
+
+    <include layout="@layout/nav_bar"></include>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="用户名:"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/marginsize"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/itemHeight"
+        android:layout_marginTop="@dimen/marginsize"
+        android:text="修改密码"
+        android:textSize="@dimen/info_size"
+        android:layout_gravity="center_vertical"
+        android:onClick="onChangeClick"
+        android:background="@drawable/commit_item_select"/>
+
+    <Button
+        style="@style/commitBtn"
+        android:text="退出登录"
+        android:onClick="onLogoutClick"
+        android:layout_marginTop="@dimen/marginsize"/>
+</LinearLayout>

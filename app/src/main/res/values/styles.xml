@@ -3,12 +3,40 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    //过渡动画
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <!-- 打开Activity时，新进入的activity执行动画-->
+        <item name="android:activityOpenEnterAnimation">@anim/open_enter</item>
+        <!--  打开Activity时,原Activiy执行动画 -->
+        <item name="android:activityOpenExitAnimation">@anim/open_exit</item>
+        <!-- 退出Activity时，退出的Activity执行动画-->
+        <item name="android:activityCloseExitAnimation">@anim/close_exit</item>
+        <!-- 退出Activity时，重新显示Activity执行动画-->
+        <item name="android:activityCloseEnterAnimation">@anim/close_enter</item>
+    </style>
 
-    <style name="FruitActivityTheme" parent="AppTheme">
+<!--分割线-->
+<style name="line">
+    <item name="android:layout_height">1dp</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:background">@color/lineColor</item>
+    <item name="android:layout_margin">@dimen/marginsize</item>
+</style>
+    
+<!--登录按钮-->
+    <style name="commitBtn">
+        <item name="android:layout_height">@dimen/btn_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/title_size</item>
+        <item name="android:layout_marginLeft">@dimen/marginsize</item>
+        <item name="android:layout_marginRight">@dimen/marginsize</item>
+        <item name="android:background">@drawable/commit_btn_select</item>
     </style>
 
 </resources>
