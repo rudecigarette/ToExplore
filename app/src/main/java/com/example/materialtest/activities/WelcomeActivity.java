@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.materialtest.R;
+import com.example.materialtest.utils.UserUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,12 +23,18 @@ public class WelcomeActivity extends BaseActivity {
     初始化--延迟执行任务
      */
     private void init(){
+        final boolean isLogin = UserUtils.validateUserLogin(this);
         mtimer = new Timer();
         mtimer.schedule(new TimerTask(){
             @Override
             public void run() {
                 //toMain();
-                toLogin();
+                if(isLogin){
+                    toMain();
+                }else {
+                    toLogin();
+                }
+
             }
         },2*1000);
     }

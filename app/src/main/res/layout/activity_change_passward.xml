@@ -13,24 +13,12 @@
         android:layout_marginTop="@dimen/marginsize"
         android:src="@mipmap/logo"/>
     <com.example.materialtest.Views.inputView
-        android:id="@+id/reg_phone"
+        android:id="@+id/chg_old_passward"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputView_height"
         android:layout_marginTop="@dimen/marginsize"
-        app:input_icon="@mipmap/phone"
-        app:input_hint="请输入手机号"
-        app:is_passward="false"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-
-        />
-    <View style="@style/line"></View>
-
-    <com.example.materialtest.Views.inputView
-        android:id="@+id/reg_passward"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/inputView_height"
         app:input_icon="@mipmap/password"
-        app:input_hint="请输入密码"
+        app:input_hint="请输入原密码"
         app:is_passward="true"
         xmlns:app="http://schemas.android.com/apk/res-auto"
 
@@ -38,11 +26,23 @@
     <View style="@style/line"></View>
 
     <com.example.materialtest.Views.inputView
-        android:id="@+id/reg_passward_confirm"
+        android:id="@+id/chg_new_passward"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputView_height"
         app:input_icon="@mipmap/password"
-        app:input_hint="请确认密码"
+        app:input_hint="请输入新密码"
+        app:is_passward="true"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        />
+    <View style="@style/line"></View>
+
+    <com.example.materialtest.Views.inputView
+        android:id="@+id/chg_new_passward2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/inputView_height"
+        app:input_icon="@mipmap/password"
+        app:input_hint="请确认新密码"
         app:is_passward="true"
         xmlns:app="http://schemas.android.com/apk/res-auto"
 
@@ -53,6 +53,5 @@
     <Button
         style="@style/commitBtn"
         android:layout_marginTop="@dimen/marginsize"
-        android:onClick="onRegClick"
-        android:text="注  册" />
+        android:text="确  认" />
 </LinearLayout>

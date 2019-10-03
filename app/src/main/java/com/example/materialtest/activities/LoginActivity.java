@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.example.materialtest.R;
@@ -48,22 +49,12 @@ public class LoginActivity extends BaseActivity {
         String phone = mInputPhone.getInputStr();
         String passward = mInputPassward.getInputStr();
         //验证用户输入是否合法
-        if(!UserUtils.vaildateLogin(this,phone,passward)){
+        if(!UserUtils.validateLogin(this,phone,passward)){
             return;
         }
-        //在数据库中查询数据并匹配验证登录
-       /* List<User> users = LitePal.where("phone=?",phone).find(User.class);
-        for(User mUser : users){
-            if((mUser.getPhone().toString().equals(phone))&&(mUser.getPassward().toString().equals(passward))){
-                Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }*/
+        Toast.makeText(this,"登录成功", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
         finish();
-        //Toast.makeText(this,"手机号或密码无效，请重新输入！",Toast.LENGTH_SHORT).show();
     }
 }

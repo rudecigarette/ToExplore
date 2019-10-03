@@ -1,5 +1,6 @@
 package com.example.materialtest.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,9 +28,9 @@ public class MeActivity extends BaseActivity {
     }
 
     /*
-    * 修改密码
+    * 修改密码点击事件
     * */
     public void onChangeClick(View v){
-
+        startActivity(new Intent(this,ChangePasswardActivity.class));
     }
 }
