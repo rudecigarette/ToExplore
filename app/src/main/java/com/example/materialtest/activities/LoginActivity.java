@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.materialtest.R;
 import com.example.materialtest.Views.inputView;
 import com.example.materialtest.db.User;
+import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.utils.UserUtils;
 
 import org.litepal.LitePal;

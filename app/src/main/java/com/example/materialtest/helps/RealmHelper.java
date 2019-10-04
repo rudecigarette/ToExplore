@@ -52,6 +52,22 @@ public class RealmHelper {
         }
         return result;
     }
-
+    /**
+     * 获取当前用户
+     */
+    public UserModel getUser(){
+        RealmQuery<UserModel> query = mRealm.where(UserModel.class);
+        UserModel userModel = query.equalTo("phone",UserHelp.getInstance().getPhone()).findFirst();
+        return userModel;
+    }
+    /**
+     * 修改用户密码
+     */
+    public void changePassward(String passward){
+        UserModel userModel = getUser();
+        mRealm.beginTransaction();
+        userModel.setPassward(passward);
+        mRealm.commitTransaction();
+    }
 
 }

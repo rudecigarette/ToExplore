@@ -29,7 +29,7 @@ public class UserHelp {
             }
             return instance;
         }
-        private String phone;
+        private String phone = null;
 
         public String getPhone() {
             return phone;

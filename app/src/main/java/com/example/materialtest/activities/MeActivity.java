@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.materialtest.R;
+import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.utils.UserUtils;
 
 public class MeActivity extends BaseActivity {
-
+    private TextView muserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +20,8 @@ public class MeActivity extends BaseActivity {
     }
     public void initView(){
         initNavbar(true,"个人中心");
+        muserName = (TextView)findViewById(R.id.Username);
+        muserName.setText("Hello"+" "+ UserHelp.getInstance().getPhone());
     }
 
     /*

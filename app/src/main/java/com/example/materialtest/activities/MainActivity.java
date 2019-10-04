@@ -13,16 +13,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.map.MapView;
 import com.example.materialtest.R;
+import com.example.materialtest.helps.UserHelp;
+import com.example.materialtest.utils.UserUtils;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private MapView mMapView=null;
-
+    private TextView muserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
                         .show();
-
-
             }
         });
     }

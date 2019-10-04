@@ -38,7 +38,7 @@
     <View style="@style/line"></View>
 
     <com.example.materialtest.Views.inputView
-        android:id="@+id/chg_new_passward2"
+        android:id="@+id/chg_new_passwardConfirm"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputView_height"
         app:input_icon="@mipmap/password"
@@ -53,5 +53,6 @@
     <Button
         style="@style/commitBtn"
         android:layout_marginTop="@dimen/marginsize"
+        android:onClick="onConfirmClick"
         android:text="确  认" />
 </LinearLayout>

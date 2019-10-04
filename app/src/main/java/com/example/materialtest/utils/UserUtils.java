@@ -140,4 +140,35 @@ public class UserUtils {
     public static boolean validateUserLogin(Context context){
         return SPUtils.isLoginUser(context);
     }
+    /**
+     * 1.用户密码修改确认
+     *      1.验证是否输入原密码
+     *      2.验证新密码输入与新密码确认是否相同
+     *      3.验证原密码输入是否与旧密码相同
+     * 2.利用realm的模型自动更新功能完成密码的修改
+     */
+    public static boolean changePassward(Context context,String oldPassward,String passward,String passwardConfirm){
+        if(TextUtils.isEmpty(oldPassward)){
+            Toast.makeText(context,"请输入原密码",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(TextUtils.isEmpty(passward)||TextUtils.isEmpty(passwardConfirm)){
+            Toast.makeText(context,"请确认新密码",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!passward.equals(passwardConfirm)){
+            Toast.makeText(context,"两次所输入的新密码不一致",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+//        验证原密码是否正确
+        RealmHelper realmHelper = new RealmHelper();
+        UserModel userModel = realmHelper.getUser();
+        if(!EncryptUtils.encryptMD5ToString(oldPassward).equals(userModel.getPassward())){
+            Toast.makeText(context,"原密码不正确",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        realmHelper.changePassward(EncryptUtils.encryptMD5ToString(passward));
+        realmHelper.close();
+        return true;
+    }
 }
