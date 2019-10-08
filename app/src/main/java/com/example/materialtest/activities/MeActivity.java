@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.materialtest.R;
 import com.example.materialtest.helps.UserHelp;
+import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
 
 public class MeActivity extends BaseActivity {
@@ -22,6 +23,7 @@ public class MeActivity extends BaseActivity {
         initNavbar(true,"个人中心");
         muserName = (TextView)findViewById(R.id.Username);
         muserName.setText("Hello"+" "+ UserHelp.getInstance().getPhone());
+        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
     }
 
     /*

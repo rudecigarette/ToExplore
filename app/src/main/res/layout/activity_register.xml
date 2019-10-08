@@ -3,20 +3,28 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".activities.LoginActivity"
+    android:background="@color/colorPrimary"
+    tools:context=".activities.RegisterActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <include layout="@layout/nav_bar"></include>
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/marginsize"
-        android:src="@mipmap/logo"/>
+        android:layout_marginBottom="@dimen/marginsize"
+        android:src="@mipmap/reguser"/>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:background="@drawable/bg1"
+        xmlns:android="http://schemas.android.com/apk/res/android">
     <com.example.materialtest.Views.inputView
         android:id="@+id/reg_phone"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputView_height"
-        android:layout_marginTop="@dimen/marginsize"
         app:input_icon="@mipmap/phone"
         app:input_hint="请输入手机号"
         app:is_passward="false"
@@ -55,4 +63,5 @@
         android:layout_marginTop="@dimen/marginsize"
         android:onClick="onRegClick"
         android:text="注  册" />
+    </LinearLayout>
 </LinearLayout>

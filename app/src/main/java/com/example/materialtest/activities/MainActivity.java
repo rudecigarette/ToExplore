@@ -1,5 +1,4 @@
 package com.example.materialtest.activities;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 import com.baidu.mapapi.map.MapView;
 import com.example.materialtest.R;
 import com.example.materialtest.helps.UserHelp;
+import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,17 +30,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
+    }
+    /**
+     * 初始化主活动布局
+     */
+    public void initView(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mMapView=(MapView)findViewById(R.id.bmapView);
         setSupportActionBar(toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
-
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -49,13 +55,12 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent_toMe = new Intent(MainActivity.this,MeActivity.class);
                         startActivity(intent_toMe);
                         break;
-
-
                 }
                 mDrawerLayout.closeDrawers();
                 return true;
             }
         });
+//        设置FAB点击事件
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +76,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
+    /**
+     *设置ActionBar展开栏样式
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
         return true;
     }
-
-
+    /**
+     * ActionBar选项点击事件
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -92,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    /**
+     * 以下为地图生命周期管理
+     */
+
     @Override
     protected void onResume() {
         super.onResume();

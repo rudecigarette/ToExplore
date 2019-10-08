@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.example.materialtest.R;
 import com.example.materialtest.Views.inputView;
 import com.example.materialtest.db.User;
+import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
 
 import org.litepal.LitePal;
@@ -32,6 +33,7 @@ public class RegisterActivity extends BaseActivity{
         phone = findViewById(R.id.reg_phone);
         passward = findViewById(R.id.reg_passward);
         passward_confirm = findViewById(R.id.reg_passward_confirm);
+        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
     }
     /*
      *注册 按钮点击事件

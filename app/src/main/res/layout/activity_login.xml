@@ -3,20 +3,29 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".activities.LoginActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <include layout="@layout/nav_bar"></include>
    <ImageView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_width="100dp"
+       android:layout_height="100dp"
        android:layout_gravity="center_horizontal"
        android:layout_marginTop="@dimen/marginsize"
-       android:src="@mipmap/logo"/>
+       android:layout_marginBottom="@dimen/marginsize"
+       android:src="@mipmap/user"/>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:background="@drawable/bg1"
+        tools:context=".activities.LoginActivity"
+        xmlns:android="http://schemas.android.com/apk/res/android">
     <com.example.materialtest.Views.inputView
         android:id="@+id/input_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputView_height"
-        android:layout_marginTop="@dimen/marginsize"
+        android:layout_marginTop="40dp"
         app:input_icon="@mipmap/phone"
         app:input_hint="手机号"
         app:is_passward="false"
@@ -52,4 +61,5 @@
         android:layout_marginTop="@dimen/marginsize"
         android:text="登  录"
         android:onClick="onCommitClick"/>
+    </LinearLayout>
 </LinearLayout>

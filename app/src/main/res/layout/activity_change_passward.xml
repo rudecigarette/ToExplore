@@ -3,20 +3,29 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".activities.LoginActivity"
+    android:background="@color/colorPrimary"
+    tools:context=".activities.ChangePasswardActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <include layout="@layout/nav_bar"></include>
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/marginsize"
-        android:src="@mipmap/logo"/>
+        android:layout_marginBottom="@dimen/marginsize"
+        android:src="@mipmap/chgpwd"/>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:background="@drawable/bg1"
+        tools:context=".activities.ChangePasswardActivity"
+        xmlns:android="http://schemas.android.com/apk/res/android">
     <com.example.materialtest.Views.inputView
         android:id="@+id/chg_old_passward"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputView_height"
-        android:layout_marginTop="@dimen/marginsize"
+        android:layout_marginTop="40dp"
         app:input_icon="@mipmap/password"
         app:input_hint="请输入原密码"
         app:is_passward="true"
@@ -55,4 +64,5 @@
         android:layout_marginTop="@dimen/marginsize"
         android:onClick="onConfirmClick"
         android:text="确  认" />
+    </LinearLayout>
 </LinearLayout>

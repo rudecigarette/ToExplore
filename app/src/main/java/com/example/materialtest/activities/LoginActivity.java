@@ -12,6 +12,7 @@ import com.example.materialtest.R;
 import com.example.materialtest.Views.inputView;
 import com.example.materialtest.db.User;
 import com.example.materialtest.helps.UserHelp;
+import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
 
 import org.litepal.LitePal;
@@ -36,6 +37,7 @@ public class LoginActivity extends BaseActivity {
         initNavbar(false,"登录");
         mInputPhone = findViewById(R.id.input_phone);
         mInputPassward = findViewById(R.id.input_passward);
+        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
     }
     /*
      *跳转注册页面点击事件

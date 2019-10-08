@@ -14,7 +14,8 @@
         android:label="Demo_mapdrawer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ChangePasswardActivity"></activity>
+        <activity android:name=".activities.SetMsgActivity"></activity>
+        <activity android:name=".activities.ChangePasswardActivity" />
         <activity android:name=".activities.MeActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity" />
@@ -22,7 +23,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="uDjRDjLNwGcYX3GK4pkeKd0o3eedwFRK" />
+            android:value="Q23CIqu62KDTfh4WCH9D2iRqhqeIjzGL" />
 
         <activity
             android:name=".activities.WelcomeActivity"
