@@ -31,6 +31,7 @@
         android:background="@drawable/commit_item_select"/>
 
     <Button
+        android:id="@+id/logoutbtn"
         style="@style/commitBtn"
         android:text="退出登录"
         android:onClick="onLogoutClick"

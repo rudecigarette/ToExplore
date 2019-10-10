@@ -19,6 +19,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:background="@drawable/bg1"
+        android:layout_marginBottom="64dp"
+        android:layout_marginLeft="@dimen/marginsize"
+        android:layout_marginRight="@dimen/marginsize"
         tools:context=".activities.ChangePasswardActivity"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <com.example.materialtest.Views.inputView

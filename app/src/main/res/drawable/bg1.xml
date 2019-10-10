@@ -3,5 +3,5 @@
     <!-- 实体颜色-->
     <solid android:color="@android:color/white"/>
     <!-- 弧度-->
-    <corners android:topLeftRadius="25dp" android:topRightRadius="25dp"/>
+    <corners android:radius="25dp"/>
 </shape>

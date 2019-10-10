@@ -18,7 +18,7 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
+        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimaryori));
         init();
     }
     /*

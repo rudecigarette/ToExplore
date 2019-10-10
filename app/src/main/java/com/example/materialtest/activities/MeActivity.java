@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.materialtest.R;
@@ -20,6 +23,9 @@ public class MeActivity extends BaseActivity {
         initView();
     }
     public void initView(){
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_about_card_show);
+        Button button = findViewById(R.id.logoutbtn);
+        button.startAnimation(animation);
         initNavbar(true,"个人中心");
         muserName = (TextView)findViewById(R.id.Username);
         muserName.setText("Hello"+" "+ UserHelp.getInstance().getPhone());
