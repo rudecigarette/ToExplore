@@ -23,7 +23,9 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
@@ -43,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private MapView mMapView=null;
     private TextView muserName;
     public LocationClient mLocationClient;
+    public LocationClient yLocationClient;
     private TextView cardViewText;
     private BaiduMap baiduMap;
+    private LocationClientOption locationOption;
     private boolean isFirstLocate = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +87,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void initView(){
         mMapView=findViewById(R.id.bmapView);
+        cardViewText=findViewById(R.id.cardview_text);
         baiduMap = mMapView.getMap();
         baiduMap.setMyLocationEnabled(true);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        mDrawerLayout =  findViewById(R.id.drawer_layout);
+        NavigationView navView = findViewById(R.id.nav_view);
         StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -108,21 +113,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-//        设置FAB点击事件
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Data deleted", Snackbar.LENGTH_SHORT)
-//                        .setAction("Undo", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                Toast.makeText(MainActivity.this, "Data restored", Toast.LENGTH_SHORT).show();
-//                            }
-//                        })
-//                        .show();
-//            }
-//        });
+//        设置FAB点击事件,回到当前位置
+        FloatingActionButton fab = findViewById(R.id.backhere);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backHere();
+                Snackbar.make(view, "已定位到当前位置", Snackbar.LENGTH_SHORT) .show();
+            }
+        });
     }
     /**
      *设置ActionBar展开栏样式
@@ -135,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
      * 与地图有关的操作
      */
     public void controlMyMap(){
-        cardViewText=findViewById(R.id.cardview_text);
         mLocationClient=new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
     }
@@ -143,14 +141,19 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceiveLocation(final BDLocation location) {
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
+                    MapStatus mMapStatus = new MapStatus.Builder().target(ll).zoom(18).build();
+                    MapStatusUpdate newupdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
                     StringBuilder currentPosition = new StringBuilder();
+                    currentPosition.append(location.getLocationDescribe().toString()).append("\n");
                     currentPosition.append("纬度：").append(location.getLatitude()).
-                            append(" ");
+                            append("\n");
                     currentPosition.append("经线：").append(location.getLongitude()).
-                            append(" ");
+                            append("\n");
                     currentPosition.append("定位方式：");
                     if (location.getLocType() == BDLocation.TypeGpsLocation) {
                         navigateTo(location);
@@ -166,6 +169,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void requestLocation() {
+        locationOption = new LocationClientOption();
+        locationOption.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        locationOption.setCoorType("bd09ll");
+        locationOption.setScanSpan(5000);
+        locationOption.setIsNeedLocationDescribe(true);
+        mLocationClient.setLocOption(locationOption);
         mLocationClient.start();
     }
     /**
@@ -185,6 +194,33 @@ public class MainActivity extends AppCompatActivity {
         locationBuilder.longitude(location.getLongitude());
         MyLocationData locationData = locationBuilder.build();
         baiduMap.setMyLocationData(locationData);
+    }
+    /**
+     * 回到当前位置
+     */
+//    新建位置监听器，并设立监听成功事件
+    public class yLocationListener implements BDLocationListener{
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
+            MapStatus mMapStatus = new MapStatus.Builder().target(ll).zoom(18).build();
+            MapStatusUpdate newupdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+            baiduMap.animateMapStatus(newupdate);
+        }
+    }
+    public void backHere(){
+        yLocationClient = new LocationClient(getApplicationContext());
+        yLocationClient.registerLocationListener(new yLocationListener());
+        locationOption = new LocationClientOption();
+        locationOption.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        locationOption.setCoorType("bd09ll");
+        yLocationClient.setLocOption(locationOption);
+        yLocationClient.start();
+        if(yLocationClient.isStarted()){
+            yLocationClient.stop();
+        }
+
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -223,7 +259,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.settings:
-//                controlMyMap();
                 Toast.makeText(this, "You clicked Settings", Toast.LENGTH_SHORT).show();
                 break;
             default:
@@ -251,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLocationClient.stop();
+        yLocationClient.stop();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
         baiduMap.setMyLocationEnabled(false);

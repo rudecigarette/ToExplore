@@ -2,6 +2,7 @@ package com.example.materialtest.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -37,6 +38,20 @@ public class StatusBarUtils {
             setColor(((Activity) context).getWindow(), color);
         }
 
+    }
+    public static void setTransparent(@NonNull Window window) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
+    public static void setTransparent(Context context) {
+        if (context instanceof Activity) {
+            setTransparent(((Activity) context).getWindow());
+        }
     }
 }
 
