@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,10 +37,11 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.example.materialtest.R;
-import com.example.materialtest.helps.UserHelp;
+import com.example.materialtest.adapter.FragmentAdapter;
+import com.example.materialtest.fragment.FirstFragment;
+import com.example.materialtest.fragment.SecondFragment;
+import com.example.materialtest.fragment.ThirdFragment;
 import com.example.materialtest.utils.StatusBarUtils;
-import com.example.materialtest.utils.UserUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView cardViewText;
     private BaiduMap baiduMap;
     private LocationClientOption locationOption;
+    private BottomNavigationView bnv;
+    private ViewPager mViewPager;
     private boolean isFirstLocate = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +98,66 @@ public class MainActivity extends AppCompatActivity {
         cardViewText=findViewById(R.id.cardview_text);
         baiduMap = mMapView.getMap();
         baiduMap.setMyLocationEnabled(true);
+        CardView mapcardView = findViewById(R.id.mapCardView);
+        CardView textcardView = findViewById(R.id.textCardView);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mDrawerLayout =  findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
-        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
+//        设置打开抽屉按钮
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.app_name,R.string.app_name);
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+//         底部导航栏点击
+        bnv = findViewById(R.id.bottom_nav_view);
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int menuId = item.getItemId();
+                switch (menuId) {
+                    case R.id.tab_one:
+                        mViewPager.setCurrentItem(0);
+                        break;
+                    case R.id.tab_two:
+                        mViewPager.setCurrentItem(1);
+                        break;
+                    case R.id.tab_three:
+                        mViewPager.setCurrentItem(2);
+                        break;
+                }
+                return false;
+            }
+        });
+
+//        viewpager
+        mViewPager = findViewById(R.id.view_pager);
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new FirstFragment());
+        fragments.add(new SecondFragment());
+        fragments.add(new ThirdFragment());
+        FragmentAdapter adapter = new FragmentAdapter(fragments, getSupportFragmentManager());
+        mViewPager.setAdapter(adapter);
+//         ViewPager 滑动事件监听
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                //将滑动到的页面对应的 menu 设置为选中状态
+                bnv.getMenu().getItem(i).setChecked(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
+
+
+    StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -253,11 +316,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                if (!mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.openDrawer(GravityCompat.START);//打开抽屉
-                }
-                break;
+//            case android.R.id.home:
+//                if (!mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+//                    mDrawerLayout.openDrawer(GravityCompat.START);//打开抽屉
+//                }
+//                break;
             case R.id.settings:
                 Toast.makeText(this, "You clicked Settings", Toast.LENGTH_SHORT).show();
                 break;
