@@ -2,9 +2,11 @@ package com.example.materialtest.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private BottomNavigationView bnv;
     private ViewPager mViewPager;
+    private AppBarLayout mAppBarLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         mDrawerLayout =  findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
-
+        mAppBarLayout = findViewById(R.id.appbar_layout);
 //        设置打开抽屉按钮
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.app_name,R.string.app_name);
         actionBarDrawerToggle.syncState();
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 int menuId = item.getItemId();
                 switch (menuId) {
                     case R.id.tab_one:
+                        mAppBarLayout.setExpanded(true);
                         mViewPager.setCurrentItem(0);
                         break;
                     case R.id.tab_two:
@@ -103,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int i) {
                 //将滑动到的页面对应的 menu 设置为选中状态
+                mAppBarLayout.setExpanded(true);
                 bnv.getMenu().getItem(i).setChecked(true);
             }
 
@@ -120,10 +125,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.me:
-                        Intent intent_toMe = new Intent(MainActivity.this,MeActivity.class);
-                        startActivity(intent_toMe);
-                        break;
+//                    case R.id.me:
+//                        Intent intent_toMe = new Intent(MainActivity.this,MeActivity.class);
+//                        startActivity(intent_toMe);
+//                        break;
                 }
                 mDrawerLayout.closeDrawers();
                 return true;
@@ -143,11 +148,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-//            case android.R.id.home:
-//                if (!mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-//                    mDrawerLayout.openDrawer(GravityCompat.START);//打开抽屉
-//                }
-//                break;
+            case android.R.id.home:
+                if (!mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.openDrawer(GravityCompat.START);//打开抽屉
+                }
+                break;
             case R.id.settings:
                 Toast.makeText(this, "You clicked Settings", Toast.LENGTH_SHORT).show();
                 break;
