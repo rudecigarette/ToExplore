@@ -3,6 +3,7 @@ package com.example.materialtest.fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,8 +30,20 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiDetailResult;
+import com.baidu.mapapi.search.poi.PoiDetailSearchResult;
+import com.baidu.mapapi.search.poi.PoiIndoorResult;
+import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
+import com.baidu.mapapi.search.poi.PoiResult;
+import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.poi.PoiSortType;
+import com.blankj.utilcode.util.SnackbarUtils;
 import com.example.materialtest.R;
 import com.example.materialtest.activities.MainActivity;
+import com.example.materialtest.utils.SnackBarUtil;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +54,14 @@ public class FirstFragment extends Fragment {
     public static LocationClient mLocationClient;
     public static LocationClient yLocationClient;
     private TextView cardViewText;
+    private TextView supInfo;
+    private PoiSearch mPoiSearch;
+    public boolean isExpanded;
     public static BaiduMap baiduMap;
     private LocationClientOption locationOption;
     private boolean isFirstLocate = true;
     private View view;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -113,6 +130,31 @@ public class FirstFragment extends Fragment {
         mLocationClient.start();
     }
     public void initView(){
+        supInfo = view.findViewById(R.id.supInfo);
+        slidingUpPanelLayout = view.findViewById(R.id.sliding_layout);
+        slidingUpPanelLayout.setAnchorPoint(0.75f);
+        slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+                if(newState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                    isExpanded = true;
+                    MainActivity.mAppBarLayout.setExpanded(false);
+
+                }
+
+                if(newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                    isExpanded = false;
+                    MainActivity.mAppBarLayout.setExpanded(true);
+                }
+            }
+        });
+
+
         mMapView=view.findViewById(R.id.bmapView);
         cardViewText=view.findViewById(R.id.cardview_text);
         baiduMap = mMapView.getMap();
@@ -126,6 +168,13 @@ public class FirstFragment extends Fragment {
                 Snackbar.make(view, "已定位到当前位置", Snackbar.LENGTH_SHORT) .show();
             }
         });
+        FloatingActionButton fab2 = view.findViewById(R.id.showSUP);
+        fab2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+            }
+        } );
 
     }
     /**
@@ -154,7 +203,37 @@ public class FirstFragment extends Fragment {
             yLocationClient.stop();
         }
     }
-
+//    public void searchPoi(BDLocation location){
+//        PoiNearbySearchOption option = new PoiNearbySearchOption();
+//        option.keyword("餐厅");
+//        option.sortType(PoiSortType.distance_from_near_to_far);
+//        option.location(new LatLng(location.getLatitude(),location.getLongitude()));
+//        option.radius(1000);
+//        option.pageCapacity(20);
+//        mPoiSearch.searchNearby(option);
+//        OnGetPoiSearchResultListener listener = new OnGetPoiSearchResultListener() {
+//
+//            @Override
+//            public void onGetPoiResult(PoiResult poiResult) {
+//            }
+//
+//            @Override
+//            public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+//            }
+//
+//            @Override
+//            public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
+//                    String tag = poiDetailSearchResult.getPoiDetailInfoList().get(0).tag;
+//                    Toast.makeText(getActivity(),tag,Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
+//
+//            }
+//        };
+//        mPoiSearch.setOnGetPoiSearchResultListener(listener);
+//    }
     public  void controlMyMap(){
         mLocationClient=new LocationClient(this.getActivity());//????getapplicationcontext
         mLocationClient.registerLocationListener(new MyLocationListener());
@@ -186,9 +265,14 @@ public class FirstFragment extends Fragment {
                         currentPosition.append("网络");
                     }
                     cardViewText.setText(currentPosition);
+
+
+
+
                 }
             });
         }
+
 
         /**
          * 导航
@@ -201,12 +285,14 @@ public class FirstFragment extends Fragment {
                 update = MapStatusUpdateFactory.zoomTo(16f);
                 baiduMap.animateMapStatus(update);
                 isFirstLocate = false;
+//                searchPoi(location);
             }
             MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
             locationBuilder.latitude(location.getLatitude());
             locationBuilder.longitude(location.getLongitude());
             MyLocationData locationData = locationBuilder.build();
             baiduMap.setMyLocationData(locationData);
+//            searchPoi(location);
         }
 
         /**

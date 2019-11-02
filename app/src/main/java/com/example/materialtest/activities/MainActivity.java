@@ -21,6 +21,7 @@ import com.example.materialtest.adapter.FragmentAdapter;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.fragment.SecondFragment;
 import com.example.materialtest.fragment.ThirdFragment;
+import com.example.materialtest.utils.NoScrollViewPager;
 import com.example.materialtest.utils.StatusBarUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +29,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private BottomNavigationView bnv;
-    private ViewPager mViewPager;
-    private AppBarLayout mAppBarLayout;
+    private NoScrollViewPager mViewPager;
+    public static AppBarLayout mAppBarLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.me:
                         Intent intent_toMe = new Intent(MainActivity.this,MeActivity.class);
-                        Toast.makeText(MainActivity.this,"you clicked me",Toast.LENGTH_SHORT).show();
                         startActivity(intent_toMe);
                         break;
                 }
@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        viewpager
         mViewPager = findViewById(R.id.view_pager);
+        mViewPager.setNoScroll(true);
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FirstFragment());
         fragments.add(new SecondFragment());
@@ -121,19 +122,6 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                switch (item.getItemId()){
-//                    case R.id.me:
-//                        Intent intent_toMe = new Intent(MainActivity.this,MeActivity.class);
-//                        startActivity(intent_toMe);
-//                        break;
-                }
-                mDrawerLayout.closeDrawers();
-                return true;
-            }
-        });
     }
     /**
      *设置ActionBar展开栏样式

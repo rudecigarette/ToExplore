@@ -6,5 +6,9 @@
             android:id="@+id/me"
             android:icon="@mipmap/me"
             android:title="个人中心" />
+        <item
+            android:id="@+id/me2"
+            android:icon="@mipmap/me"
+            android:title="个人中心" />
     </group>
 </menu>
