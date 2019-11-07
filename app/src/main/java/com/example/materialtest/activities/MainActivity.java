@@ -37,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
     }
+
     /**
      * 初始化主活动布局
      */
     public void initView(){
-
+//        获取实例
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mDrawerLayout =  findViewById(R.id.drawer_layout);
@@ -52,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
 
-
-//         底部导航栏点击
+//         底部导航栏点击事件
         bnv = findViewById(R.id.bottom_nav_view);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-//设置抽屉按钮点击事件
+//         设置抽屉按钮点击事件
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -89,13 +89,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        viewpager
+//        设置viewpager
         mViewPager = findViewById(R.id.view_pager);
         mViewPager.setNoScroll(true);
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FirstFragment());
         fragments.add(new SecondFragment());
         fragments.add(new ThirdFragment());
+
         FragmentAdapter adapter = new FragmentAdapter(fragments, getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
 //         ViewPager 滑动事件监听
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int i) {
             }
         });
+//        设置主活动的状态栏颜色
     StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
     }
+
     /**
      *设置ActionBar展开栏样式
      */
@@ -130,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.toolbar, menu);
         return true;
     }
+
     /**
      * ActionBar选项点击事件
      */
@@ -143,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.settings:
                 Toast.makeText(this, "You clicked Settings", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,PoiSearchDemo.class));
                 break;
             default:
         }

@@ -130,7 +130,6 @@ public class FirstFragment extends Fragment {
         mLocationClient.start();
     }
     public void initView(){
-        supInfo = view.findViewById(R.id.supInfo);
         slidingUpPanelLayout = view.findViewById(R.id.sliding_layout);
         slidingUpPanelLayout.setAnchorPoint(0.75f);
         slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {

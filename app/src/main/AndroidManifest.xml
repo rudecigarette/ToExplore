@@ -24,7 +24,8 @@
         android:label="Explore"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.FruitActivity"></activity>
+        <activity android:name=".activities.PoiSearchDemo"></activity>
+        <activity android:name=".activities.FruitActivity" />
         <activity android:name=".activities.SetMsgActivity" />
         <activity android:name=".activities.ChangePasswardActivity" />
         <activity android:name=".activities.MeActivity" />
@@ -49,7 +50,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
     </application>
 
 </manifest>

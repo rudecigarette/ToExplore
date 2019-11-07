@@ -92,12 +92,32 @@
                 android:src="@drawable/ic_done" />
         </android.support.design.widget.CoordinatorLayout>
 
-        <TextView
-            android:id="@+id/supInfo"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|top"
-            android:text="The Awesome Sliding Up Panel"
-            android:textSize="16sp" />
+            android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pineapple"></ImageView>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pineapple"></ImageView>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pineapple"></ImageView>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pineapple"></ImageView>
+    <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/pineapple"></ImageView>
+        </FrameLayout>
+
+
+
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
     </RelativeLayout>

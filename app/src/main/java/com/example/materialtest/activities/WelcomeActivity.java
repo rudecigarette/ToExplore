@@ -38,7 +38,7 @@ public class WelcomeActivity extends BaseActivity {
                 }
 
             }
-        },2*1000);
+        },1*1000);
     }
     /*
        跳转到MainActivity
