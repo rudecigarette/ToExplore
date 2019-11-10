@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools">
 
-
-
-
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
-        sothree:umanoParallaxOffset="100dp"
         sothree:umanoPanelHeight="0dp"
+        sothree:umanoParallaxOffset="100dp"
         sothree:umanoShadowHeight="4dp">
+
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <!-- 卡片布局       -->
-            <android.support.v7.widget.CardView
-                android:id="@+id/mapCardView"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/mapCardView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="10dp"
                 app:cardBackgroundColor="@color/itemColorh"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="2dp">
+
                 <com.baidu.mapapi.map.MapView
                     android:id="@+id/bmapView"
                     android:layout_width="match_parent"
@@ -37,31 +34,32 @@
                     android:clickable="true" />
             </android.support.v7.widget.CardView>
             <!-- 卡片布局       -->
-            <android.support.v7.widget.CardView
-                android:id="@+id/textCardView"
-                android:visibility="gone"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/textCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="380dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="380dp"
                 android:layout_marginRight="16dp"
-                app:cardCornerRadius="10dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/itemColorh"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="2dp">
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
+
                     <ImageView
                         android:id="@+id/cardview_image"
                         android:layout_width="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_height="100dp"
-                        android:src="@mipmap/launcher"
-                        />
+                        android:layout_gravity="center"
+                        android:src="@mipmap/launcher" />
+
                     <TextView
                         android:id="@+id/cardview_text"
                         android:layout_width="wrap_content"
@@ -72,6 +70,7 @@
                         android:textSize="20sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/backhere"
                 android:layout_width="wrap_content"
@@ -79,45 +78,43 @@
                 android:layout_gravity="right"
                 android:layout_marginTop="460dp"
                 android:layout_marginRight="8dp"
+                android:src="@drawable/nav"
                 sothree:backgroundTint="#ffffff"
-                sothree:fabSize="mini"
-                android:src="@drawable/nav" />
+                sothree:fabSize="mini" />
+
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/showSUP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
-                android:layout_marginBottom="16dp"
                 android:layout_marginTop="200dp"
+                android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_done" />
         </android.support.design.widget.CoordinatorLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/pineapple"></ImageView>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/pineapple"></ImageView>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/pineapple"></ImageView>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/pineapple"></ImageView>
-    <ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/pineapple"></ImageView>
-        </FrameLayout>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_width="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击收起面板"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center_horizontal"/>
+            <View style="@style/line"></View>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/myfirstRecycleView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
 
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-    </RelativeLayout>
+</RelativeLayout>

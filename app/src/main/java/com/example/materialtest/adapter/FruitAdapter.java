@@ -35,7 +35,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
 //                位置获取出问题
-                int position = ;
+                int position = 1;
                 Fruit fruit = mFruitList.get(position);
                 Intent intent = new Intent(mContext, FruitActivity.class);
                 intent.putExtra(FruitActivity.FRUIT_NAME, fruit.getName());

@@ -1,10 +1,7 @@
 package com.example.materialtest.fragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +10,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,27 +29,21 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiDetailSearchResult;
-import com.baidu.mapapi.search.poi.PoiIndoorResult;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
-import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
-import com.baidu.mapapi.search.poi.PoiSortType;
-import com.blankj.utilcode.util.SnackbarUtils;
 import com.example.materialtest.R;
 import com.example.materialtest.activities.MainActivity;
-import com.example.materialtest.utils.SnackBarUtil;
+import com.example.materialtest.adapter.MyAdapter;
+import com.example.materialtest.helps.RecycleScrollableViewHelper;
+import com.example.materialtest.models.Word;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class FirstFragment extends Fragment {
-    public static MapView mMapView=null;
+    public static MapView mMapView = null;
     public static LocationClient mLocationClient;
     public static LocationClient yLocationClient;
     private TextView cardViewText;
@@ -62,6 +55,10 @@ public class FirstFragment extends Fragment {
     private boolean isFirstLocate = true;
     private View view;
     private SlidingUpPanelLayout slidingUpPanelLayout;
+    RecyclerView recyclerView;
+    MyAdapter myAdapter;
+    ArrayList<Word>data =new ArrayList<>();
+    Word []words ={new Word("America","美国"),new Word("China","中国")};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,19 +70,19 @@ public class FirstFragment extends Fragment {
          */
         List<String> permissionList = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.
-                permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+                permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
         if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.
                 permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.READ_PHONE_STATE);
         }
-        if (ContextCompat.checkSelfPermission(this.getActivity(),Manifest.
-                permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.
+                permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
         if (!permissionList.isEmpty()) {
-            String [] permissions = permissionList.toArray(new String[permissionList.
+            String[] permissions = permissionList.toArray(new String[permissionList.
                     size()]);
             ActivityCompat.requestPermissions(this.getActivity(), permissions, 1);
         } else {
@@ -94,11 +91,9 @@ public class FirstFragment extends Fragment {
         }
 
 
-
-
-
         return view;
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -120,6 +115,7 @@ public class FirstFragment extends Fragment {
             default:
         }
     }
+
     public void requestLocation() {
         locationOption = new LocationClientOption();
         locationOption.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
@@ -129,8 +125,23 @@ public class FirstFragment extends Fragment {
         mLocationClient.setLocOption(locationOption);
         mLocationClient.start();
     }
-    public void initView(){
+
+    public void initView() {
+
+        for(int i=0;i<50;i++){
+            Random random = new Random();
+            int j = random.nextInt(2);
+            data.add(words[j]);
+        }
+        recyclerView = view.findViewById(R.id.myfirstRecycleView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        myAdapter = new MyAdapter();
+        myAdapter.setData(data);
+        myAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(myAdapter);
+
         slidingUpPanelLayout = view.findViewById(R.id.sliding_layout);
+        slidingUpPanelLayout.setScrollableView((view.findViewById(R.id.myfirstRecycleView)));
         slidingUpPanelLayout.setAnchorPoint(0.75f);
         slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -140,13 +151,13 @@ public class FirstFragment extends Fragment {
 
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-                if(newState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                if (newState == SlidingUpPanelLayout.PanelState.EXPANDED) {
                     isExpanded = true;
                     MainActivity.mAppBarLayout.setExpanded(false);
 
                 }
 
-                if(newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                if (newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                     isExpanded = false;
                     MainActivity.mAppBarLayout.setExpanded(true);
                 }
@@ -154,33 +165,35 @@ public class FirstFragment extends Fragment {
         });
 
 
-        mMapView=view.findViewById(R.id.bmapView);
-        cardViewText=view.findViewById(R.id.cardview_text);
+        mMapView = view.findViewById(R.id.bmapView);
+        cardViewText = view.findViewById(R.id.cardview_text);
         baiduMap = mMapView.getMap();
         baiduMap.setMyLocationEnabled(true);
+
         //        设置FAB点击事件,回到当前位置
         FloatingActionButton fab = view.findViewById(R.id.backhere);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 backHere();
-                Snackbar.make(view, "已定位到当前位置", Snackbar.LENGTH_SHORT) .show();
+                Snackbar.make(view, "已定位到当前位置", Snackbar.LENGTH_SHORT).show();
             }
         });
         FloatingActionButton fab2 = view.findViewById(R.id.showSUP);
-        fab2.setOnClickListener(new View.OnClickListener(){
+        fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
             }
-        } );
+        });
 
     }
+
     /**
      * 与地图有关的操作
      */
     //    新建位置监听器，并设立监听成功事件
-    public class yLocationListener implements BDLocationListener{
+    public class yLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
             LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
@@ -189,8 +202,9 @@ public class FirstFragment extends Fragment {
             baiduMap.animateMapStatus(newupdate);
         }
     }
-//    回到当前位置
-    public void backHere(){
+
+    //    回到当前位置
+    public void backHere() {
         yLocationClient = new LocationClient(this.getActivity());
         yLocationClient.registerLocationListener(new yLocationListener());
         locationOption = new LocationClientOption();
@@ -198,45 +212,16 @@ public class FirstFragment extends Fragment {
         locationOption.setCoorType("bd09ll");
         yLocationClient.setLocOption(locationOption);
         yLocationClient.start();
-        if(yLocationClient.isStarted()){
+        if (yLocationClient.isStarted()) {
             yLocationClient.stop();
         }
     }
-//    public void searchPoi(BDLocation location){
-//        PoiNearbySearchOption option = new PoiNearbySearchOption();
-//        option.keyword("餐厅");
-//        option.sortType(PoiSortType.distance_from_near_to_far);
-//        option.location(new LatLng(location.getLatitude(),location.getLongitude()));
-//        option.radius(1000);
-//        option.pageCapacity(20);
-//        mPoiSearch.searchNearby(option);
-//        OnGetPoiSearchResultListener listener = new OnGetPoiSearchResultListener() {
-//
-//            @Override
-//            public void onGetPoiResult(PoiResult poiResult) {
-//            }
-//
-//            @Override
-//            public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-//            }
-//
-//            @Override
-//            public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
-//                    String tag = poiDetailSearchResult.getPoiDetailInfoList().get(0).tag;
-//                    Toast.makeText(getActivity(),tag,Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-//
-//            }
-//        };
-//        mPoiSearch.setOnGetPoiSearchResultListener(listener);
-//    }
-    public  void controlMyMap(){
-        mLocationClient=new LocationClient(this.getActivity());//????getapplicationcontext
+
+    public void controlMyMap() {
+        mLocationClient = new LocationClient(this.getActivity());//????getapplicationcontext
         mLocationClient.registerLocationListener(new MyLocationListener());
     }
+
     public class MyLocationListener implements BDLocationListener {
 
         @Override
@@ -264,8 +249,6 @@ public class FirstFragment extends Fragment {
                         currentPosition.append("网络");
                     }
                     cardViewText.setText(currentPosition);
-
-
 
 
                 }
@@ -298,7 +281,7 @@ public class FirstFragment extends Fragment {
          * 回到当前位置
          */
 //    新建位置监听器，并设立监听成功事件
-        public class yLocationListener implements BDLocationListener{
+        public class yLocationListener implements BDLocationListener {
             @Override
             public void onReceiveLocation(BDLocation location) {
                 LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
@@ -308,6 +291,7 @@ public class FirstFragment extends Fragment {
             }
         }
     }
+
     /**
      * 地图生命周期管理
      */
