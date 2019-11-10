@@ -8,8 +8,8 @@
     android:paddingRight="24dp"
     android:gravity="center_vertical">
 <ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="16dp"
+    android:layout_height="16dp"
     android:id="@+id/iv_icon"
     android:src="@mipmap/phone"/>
 <EditText
@@ -20,6 +20,6 @@
     android:hint="用户名"
     android:paddingLeft="@dimen/marginsize"
     android:paddingRight="@dimen/marginsize"
-    android:textSize="@dimen/navbar_titlesize"
+    android:textSize="16dp"
     />
 </LinearLayout>

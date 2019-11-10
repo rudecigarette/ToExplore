@@ -57,13 +57,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView textViewNumber,textViewEnglish,textViewChinese;
-        ImageView imageViewpic;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNumber = itemView.findViewById(R.id.textViewNumber);
             textViewEnglish = itemView.findViewById(R.id.textViewEnglish);
             textViewChinese = itemView.findViewById(R.id.textViewChinese);
-            imageViewpic = itemView.findViewById(R.id.imageViewPic);
         }
     }
 }

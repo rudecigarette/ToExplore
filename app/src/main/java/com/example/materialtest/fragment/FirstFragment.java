@@ -1,6 +1,7 @@
 package com.example.materialtest.fragment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,11 +33,17 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.example.materialtest.R;
 import com.example.materialtest.activities.MainActivity;
+import com.example.materialtest.activities.Test;
 import com.example.materialtest.adapter.MyAdapter;
+import com.example.materialtest.adapter.StoreAdapter;
 import com.example.materialtest.helps.RecycleScrollableViewHelper;
+import com.example.materialtest.models.Store;
 import com.example.materialtest.models.Word;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -56,9 +63,9 @@ public class FirstFragment extends Fragment {
     private View view;
     private SlidingUpPanelLayout slidingUpPanelLayout;
     RecyclerView recyclerView;
-    MyAdapter myAdapter;
-    ArrayList<Word>data =new ArrayList<>();
-    Word []words ={new Word("America","美国"),new Word("China","中国")};
+    StoreAdapter myAdapter;
+    ArrayList<Store>stores =new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -126,17 +133,33 @@ public class FirstFragment extends Fragment {
         mLocationClient.start();
     }
 
+    public void initData(){
+        InputStream inputStream = getResources().openRawResource(R.raw.storeinfo);
+        String storeName = "";
+        String storeInfo = "";
+        String storePic = "";
+        int resourceId ;
+        List<String> data = Test.getString(inputStream);
+        Context ctx = getContext();
+
+
+
+        for(int i=0;i<data.size();i++){
+            storeName = data.get(i).split(",")[1];
+            storeInfo = "评分："+data.get(i).split(",")[2]+"  "+data.get(i).split(",")[3];
+            storePic = data.get(i).split(",")[4];
+            resourceId = getResources().getIdentifier(storePic,"drawable",ctx.getPackageName());
+            Store store = new Store(storeName,storeInfo,resourceId);
+            stores.add(store);
+        }
+    }
     public void initView() {
 
-        for(int i=0;i<50;i++){
-            Random random = new Random();
-            int j = random.nextInt(2);
-            data.add(words[j]);
-        }
+        initData();
         recyclerView = view.findViewById(R.id.myfirstRecycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myAdapter = new MyAdapter();
-        myAdapter.setData(data);
+        myAdapter = new StoreAdapter();
+        myAdapter.setStores(stores);
         myAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(myAdapter);
 
@@ -319,5 +342,6 @@ public class FirstFragment extends Fragment {
         mMapView.onDestroy();
         baiduMap.setMyLocationEnabled(false);
     }
+
 }
 

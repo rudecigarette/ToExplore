@@ -8,8 +8,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <include layout="@layout/nav_bar"></include>
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/marginsize"
         android:layout_marginBottom="@dimen/marginsize"
@@ -20,8 +20,8 @@
         android:orientation="vertical"
         android:background="@drawable/bg1"
         android:layout_marginBottom="64dp"
-        android:layout_marginLeft="@dimen/marginsize"
-        android:layout_marginRight="@dimen/marginsize"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
         tools:context=".activities.ChangePasswardActivity"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <com.example.materialtest.Views.inputView

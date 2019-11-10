@@ -24,6 +24,7 @@
         android:label="Explore"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.Test"></activity>
         <activity android:name=".activities.PoiSearchDemo" />
         <activity android:name=".activities.FruitActivity" />
         <activity android:name=".activities.SetMsgActivity" />
@@ -32,7 +33,7 @@
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.WordActivity"/>
+        <activity android:name=".activities.WordActivity" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
