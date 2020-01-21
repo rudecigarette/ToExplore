@@ -24,9 +24,10 @@
         android:label="Explore"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.Test"></activity>
+        <activity android:name=".activities.StoreActivity"></activity>
+        <activity android:name=".activities.Test" />
         <activity android:name=".activities.PoiSearchDemo" />
-        <activity android:name=".activities.FruitActivity" />
+        <activity android:name=".activities.FruitActivity" android:theme="@style/FruitActivityTheme"/>
         <activity android:name=".activities.SetMsgActivity" />
         <activity android:name=".activities.ChangePasswardActivity" />
         <activity android:name=".activities.MeActivity" />

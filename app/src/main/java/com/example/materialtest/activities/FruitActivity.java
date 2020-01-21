@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.materialtest.R;
-import com.example.materialtest.utils.StatusBarUtils;
 
 public class FruitActivity extends AppCompatActivity {
     public static final String FRUIT_NAME = "fruit_name";
@@ -22,7 +21,6 @@ public class FruitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruit);
-        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
         Intent intent = getIntent();
         String fruitName = intent.getStringExtra(FRUIT_NAME);
         int fruitImageId = intent.getIntExtra(FRUIT_IMAGE_ID, 0);

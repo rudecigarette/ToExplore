@@ -10,4 +10,5 @@
     <dimen name="btn_height">44dp</dimen>
     <dimen name="radius">5dp</dimen>
     <dimen name="itemHeight">44dp</dimen>
+    <dimen name="np_search_text_size">30</dimen>
 </resources>

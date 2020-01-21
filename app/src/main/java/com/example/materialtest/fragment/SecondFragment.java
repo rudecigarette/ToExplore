@@ -1,5 +1,6 @@
 package com.example.materialtest.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,9 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.materialtest.R;
+import com.example.materialtest.activities.Test;
 import com.example.materialtest.adapter.FruitAdapter;
 import com.example.materialtest.models.Fruit;
+import com.example.materialtest.models.Store;
+import com.example.materialtest.utils.ReadtxtUtil;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -22,22 +27,11 @@ import java.util.Random;
 
 public class SecondFragment extends Fragment {
     @Nullable
-    private List<Fruit> fruitList = new ArrayList<>();
+    private List<Store> stores = new ArrayList<>();
 
     private FruitAdapter adapter;
 
     private SwipeRefreshLayout swipeRefresh;
-
-    private Fruit[] fruits = {new Fruit("Apple", R.drawable.apple), new Fruit("Banana",
-            R.drawable.banana),
-            new Fruit("Orange", R.drawable.orange), new Fruit("Watermelon", R.
-            drawable.watermelon),
-            new Fruit("Pear", R.drawable.pear), new Fruit("Grape", R.drawable.
-            grape),
-            new Fruit("Pineapple", R.drawable.pineapple), new Fruit("Strawberry",
-            R.drawable.strawberry),
-            new Fruit("Cherry", R.drawable.cherry), new Fruit("Mango", R.drawable.
-            mango)};
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +49,7 @@ public class SecondFragment extends Fragment {
             RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
             GridLayoutManager layoutManager = new GridLayoutManager(this.getActivity(), 2);
             recyclerView.setLayoutManager(layoutManager);
-            adapter = new FruitAdapter(fruitList);
+            adapter = new FruitAdapter(stores);
             recyclerView.setAdapter(adapter);
         return view;
     }
@@ -80,11 +74,23 @@ public class SecondFragment extends Fragment {
         }).start();
     }
     private void initFruits() {
-        fruitList.clear();
-        for (int i = 0; i < 50; i++) {
-            Random random = new Random();
-            int index = random.nextInt(fruits.length);
-            fruitList.add(fruits[index]);
+        InputStream inputStream = getResources().openRawResource(R.raw.storeinfo);
+        String storeName = "";
+        String storeInfo = "";
+        String storePic = "";
+        int resourceId ;
+        List<String> data = ReadtxtUtil.getString(inputStream);
+        Context ctx = getContext();
+
+
+
+        for(int i=0;i<data.size();i++){
+            storeName = data.get(i).split(",")[1];
+            storeInfo = "评分："+data.get(i).split(",")[2]+"  "+data.get(i).split(",")[3];
+            storePic = data.get(i).split(",")[4];
+            resourceId = getResources().getIdentifier(storePic,"drawable",ctx.getPackageName());
+            Store store = new Store(storeName,storeInfo,resourceId);
+            stores.add(store);
         }
     }
 }

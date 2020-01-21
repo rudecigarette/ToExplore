@@ -39,6 +39,7 @@ import com.example.materialtest.adapter.StoreAdapter;
 import com.example.materialtest.helps.RecycleScrollableViewHelper;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.models.Word;
+import com.example.materialtest.utils.ReadtxtUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.FileInputStream;
@@ -139,7 +140,7 @@ public class FirstFragment extends Fragment {
         String storeInfo = "";
         String storePic = "";
         int resourceId ;
-        List<String> data = Test.getString(inputStream);
+        List<String> data = ReadtxtUtil.getString(inputStream);
         Context ctx = getContext();
 
 

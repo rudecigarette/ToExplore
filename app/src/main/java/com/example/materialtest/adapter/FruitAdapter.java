@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.materialtest.R;
 import com.example.materialtest.activities.FruitActivity;
 import com.example.materialtest.models.Fruit;
+import com.example.materialtest.models.Store;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 
     private Context mContext;
 
-    private List<Fruit> mFruitList;
+    private List<Store> stores;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,31 +32,28 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
         View view = LayoutInflater.from(mContext).inflate(R.layout.fruit_item,
                 parent, false);
         final ViewHolder holder = new ViewHolder(view);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                位置获取出问题
-                int position = 1;
-                Fruit fruit = mFruitList.get(position);
-                Intent intent = new Intent(mContext, FruitActivity.class);
-                intent.putExtra(FruitActivity.FRUIT_NAME, fruit.getName());
-                intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, fruit.getImageId());
-                mContext.startActivity(intent);
-            }
-        });
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Fruit fruit = mFruitList.get(position);
-        holder.fruitName.setText(fruit.getName());
-        Glide.with(mContext).load(fruit.getImageId()).into(holder.fruitImage);
+        final Store store = stores.get(position);
+        holder.fruitName.setText(store.getStoreName());
+        holder.fruitImage.setImageResource(store.getResourceId());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, FruitActivity.class);
+                intent.putExtra(FruitActivity.FRUIT_NAME,store.getStoreName());
+                intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, store.getResourceId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return mFruitList.size();
+        return stores.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -70,7 +68,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
             fruitName = (TextView) view.findViewById(R.id.fruit_name);
         }
     }
-    public FruitAdapter(List<Fruit> fruitList) {
-        mFruitList = fruitList;
+    public FruitAdapter(List<Store> stores) {
+        this.stores = stores;
     }
 }

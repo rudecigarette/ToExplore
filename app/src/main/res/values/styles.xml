@@ -27,7 +27,16 @@
     <item name="android:background">@color/lineColor</item>
     <item name="android:layout_margin">@dimen/marginsize</item>
 </style>
-    
+
+
+    <style name="line2">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/lineColor</item>
+        <item name="android:layout_margin">@dimen/marginsize</item>
+    </style>
+
+
 <!--登录按钮-->
     <style name="commitBtn">
         <item name="android:layout_height">@dimen/btn_height</item>
@@ -38,5 +47,6 @@
         <item name="android:layout_marginRight">@dimen/marginsize</item>
         <item name="android:background">@drawable/commit_btn_select</item>
     </style>
-
+    <style name="FruitActivityTheme" parent="AppTheme">
+    </style>
 </resources>
