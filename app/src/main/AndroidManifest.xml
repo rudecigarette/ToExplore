@@ -21,6 +21,7 @@
         android:name=".DemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/launcher"
+        tools:replace="android:label"
         android:label="Explore"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

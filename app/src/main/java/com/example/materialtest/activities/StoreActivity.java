@@ -2,6 +2,8 @@ package com.example.materialtest.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -18,16 +20,21 @@ import com.example.materialtest.R;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.utils.ReadtxtUtil;
+import com.zhuang.likeviewlibrary.LikeView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StoreActivity extends AppCompatActivity {
-
+    public static final int UPDATE_TEXT = 1;
+    private Handler handler;
+    private int likecount = 0;
     private ArrayList<Store> sources = new ArrayList<>();
     private String Storename = null;
     public FloatingActionButton floatingActionButton;
+    public TextView likecountTextView;
+    LikeView likeView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +71,46 @@ public class StoreActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(intent,"选择分享应用"));
             }
         });
+        likecountTextView = findViewById(R.id.likecountTextView);
+//        使用handler来处理ui更新
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    case UPDATE_TEXT:
+                        likecountTextView.setText(likecount+"");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Message message = new Message();
+                message.what = UPDATE_TEXT;
+                handler.sendMessage(message);
+            }
+        }).start();
+        likeView = findViewById(R.id.likeView);
+        likeView.setOnLikeListeners(new LikeView.OnLikeListeners() {
+            @Override
+            public void like(boolean isCancel) {
+                likecount++;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Message message = new Message();
+                        message.what = UPDATE_TEXT;
+                        handler.sendMessage(message);
+                    }
+                }).start();
+            }
+        });
     }
+
+
 
     public int getFruitImageId(String Storename){
         sources = FirstFragment.getStores();
