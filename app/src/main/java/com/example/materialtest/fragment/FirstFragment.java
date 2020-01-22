@@ -65,7 +65,7 @@ public class FirstFragment extends Fragment {
     private SlidingUpPanelLayout slidingUpPanelLayout;
     RecyclerView recyclerView;
     StoreAdapter myAdapter;
-    ArrayList<Store>stores =new ArrayList<>();
+    public static ArrayList<Store>stores =new ArrayList<>();
 
     @Nullable
     @Override
@@ -342,6 +342,11 @@ public class FirstFragment extends Fragment {
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
         baiduMap.setMyLocationEnabled(false);
+    }
+
+    public static ArrayList<Store> getStores(){
+
+        return stores;
     }
 
 }

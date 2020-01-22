@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/me"
-            android:icon="@mipmap/me"
+            android:icon="@mipmap/user"
             android:title="个人中心" />
         <item
-            android:id="@+id/me2"
-            android:icon="@mipmap/me"
-            android:title="个人中心" />
+            android:id="@+id/collection"
+            android:icon="@mipmap/collection"
+            android:title="我的收藏" />
     </group>
 </menu>

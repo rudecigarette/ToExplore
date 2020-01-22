@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.Resource;
 import com.example.materialtest.R;
+import com.example.materialtest.activities.FruitActivity;
+import com.example.materialtest.activities.StoreActivity;
 import com.example.materialtest.activities.WordActivity;
 import com.example.materialtest.models.Word;
 
@@ -43,7 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(holder.itemView.getContext(), WordActivity.class);
+                Intent intent = new Intent(holder.itemView.getContext(), FruitActivity.class);
                 intent.putExtra("WordName",holder.textViewChinese.getText().toString());
                 holder.itemView.getContext().startActivity(intent);
             }

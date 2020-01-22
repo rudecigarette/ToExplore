@@ -15,7 +15,10 @@ import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
 
 public class MeActivity extends BaseActivity {
-    private TextView muserName;
+    private TextView useraccount;
+    private TextView username;
+    private TextView usersex;
+    private TextView usersignature;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +30,18 @@ public class MeActivity extends BaseActivity {
         Button button = findViewById(R.id.logoutbtn);
         button.startAnimation(animation);
         initNavbar(true,"个人中心");
-        muserName = (TextView)findViewById(R.id.Username);
-        muserName.setText("Hello"+" "+ UserHelp.getInstance().getPhone());
+
+        useraccount = findViewById(R.id.Useraccount);
+        username = (TextView)findViewById(R.id.Username);
+        usersex = findViewById(R.id.Usersex);
+        usersignature = findViewById(R.id.Usersignature);
+
+        useraccount.append(UserHelp.getInstance().getPhone());
+        username.append("安德鲁：加菲");
+        usersex.append("男");
+        usersignature.append("lmsove");
+
+
         StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
     }
 
@@ -44,5 +57,8 @@ public class MeActivity extends BaseActivity {
     * */
     public void onChangeClick(View v){
         startActivity(new Intent(this,ChangePasswardActivity.class));
+    }
+
+    public void onEditClick(View view) {
     }
 }

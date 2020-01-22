@@ -83,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent_toMe = new Intent(MainActivity.this,MeActivity.class);
                         startActivity(intent_toMe);
                         break;
+                    case R.id.collection:
+                        Intent intent_toCollection = new Intent(MainActivity.this,CollectionActivity.class);
+                        startActivity(intent_toCollection);
+                        break;
                 }
                 mDrawerLayout.closeDrawers();
                 return true;

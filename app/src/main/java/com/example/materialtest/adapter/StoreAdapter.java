@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.materialtest.R;
+import com.example.materialtest.activities.StoreActivity;
 import com.example.materialtest.activities.WordActivity;
 import com.example.materialtest.models.Store;
 
@@ -44,8 +45,8 @@ public class StoreAdapter extends  RecyclerView.Adapter<StoreAdapter.MyViewHolde
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(holder.itemView.getContext(), WordActivity.class);
-                intent.putExtra("WordName",holder.textViewEnglish.getText().toString());
+                Intent intent = new Intent(holder.itemView.getContext(), StoreActivity.class);
+                intent.putExtra("StoreName",holder.textViewEnglish.getText().toString());
                 holder.itemView.getContext().startActivity(intent);
             }
         });

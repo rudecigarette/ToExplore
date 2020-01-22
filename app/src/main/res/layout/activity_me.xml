@@ -10,14 +10,55 @@
     <include layout="@layout/nav_bar"></include>
 
     <TextView
+    android:id="@+id/Useraccount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginsize"
+    android:text="账号："
+    android:textSize="@dimen/title_size"
+    android:textStyle="bold"
+    android:layout_marginTop="@dimen/marginsize"/>
+    <TextView
         android:id="@+id/Username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="用户名:"
+        android:text="昵称："
+        android:layout_marginLeft="@dimen/marginsize"
         android:textSize="@dimen/title_size"
         android:textStyle="bold"
         android:layout_marginTop="@dimen/marginsize"/>
+
+
+    <TextView
+        android:id="@+id/Usersex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="性别："
+        android:layout_marginLeft="@dimen/marginsize"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/marginsize"/>
+
+    <TextView
+        android:id="@+id/Usersignature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="个性签名："
+        android:layout_marginLeft="@dimen/marginsize"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/marginsize"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/itemHeight"
+        android:layout_marginTop="@dimen/marginsize"
+        android:text="编辑信息"
+        android:gravity="center"
+        android:textSize="@dimen/info_size"
+        android:layout_gravity="center"
+        android:onClick="onEditClick"
+        android:background="@drawable/commit_item_select"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -29,6 +70,9 @@
         android:layout_gravity="center"
         android:onClick="onChangeClick"
         android:background="@drawable/commit_item_select"/>
+
+
+
 
     <Button
         android:id="@+id/logoutbtn"
