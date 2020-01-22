@@ -3,11 +3,13 @@ package com.example.materialtest.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ public class StoreActivity extends AppCompatActivity {
 
     private ArrayList<Store> sources = new ArrayList<>();
     private String Storename = null;
+    public FloatingActionButton floatingActionButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,17 @@ public class StoreActivity extends AppCompatActivity {
         }
         String fruitContent = generateFruitContent(Storename);
         fruitContentText.setText(fruitContent);
+        floatingActionButton = findViewById(R.id.shareFAB);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT,Storename);
+                intent.setType("text/plain");
+                startActivity(Intent.createChooser(intent,"选择分享应用"));
+            }
+        });
     }
 
     public int getFruitImageId(String Storename){
