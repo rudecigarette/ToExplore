@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.materialtest.R;
 import com.example.materialtest.activities.FruitActivity;
+import com.example.materialtest.activities.StoreActivity;
 import com.example.materialtest.models.Store;
 
 import java.util.ArrayList;
@@ -41,9 +42,8 @@ public class SeachRecycleViewAdapter extends RecyclerView.Adapter<SeachRecycleVi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, FruitActivity.class);
-                intent.putExtra(FruitActivity.FRUIT_NAME,store.getStoreName());
-                intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, store.getResourceId());
+                Intent intent = new Intent(mContext, StoreActivity.class);
+                intent.putExtra("StoreName",store.getStoreName());
                 mContext.startActivity(intent);
             }
         });

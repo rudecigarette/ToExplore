@@ -1,14 +1,21 @@
 package com.example.materialtest.fragment;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.AppOpsManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.AppOpsManagerCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,21 +40,15 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.example.materialtest.R;
 import com.example.materialtest.activities.MainActivity;
-import com.example.materialtest.activities.Test;
-import com.example.materialtest.adapter.MyAdapter;
 import com.example.materialtest.adapter.StoreAdapter;
-import com.example.materialtest.helps.RecycleScrollableViewHelper;
 import com.example.materialtest.models.Store;
-import com.example.materialtest.models.Word;
+import com.example.materialtest.utils.LocateUtil;
 import com.example.materialtest.utils.ReadtxtUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class FirstFragment extends Fragment {
@@ -65,13 +66,14 @@ public class FirstFragment extends Fragment {
     private SlidingUpPanelLayout slidingUpPanelLayout;
     RecyclerView recyclerView;
     StoreAdapter myAdapter;
-    public static ArrayList<Store>stores =new ArrayList<>();
+    public static ArrayList<Store> stores = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_first, container, false);
         initView();
+        checkLocationPermission();
 
         /**
          *权限申请
@@ -134,26 +136,26 @@ public class FirstFragment extends Fragment {
         mLocationClient.start();
     }
 
-    public void initData(){
+    public void initData() {
         InputStream inputStream = getResources().openRawResource(R.raw.storeinfo);
         String storeName = "";
         String storeInfo = "";
         String storePic = "";
-        int resourceId ;
+        int resourceId;
         List<String> data = ReadtxtUtil.getString(inputStream);
         Context ctx = getContext();
 
 
-
-        for(int i=0;i<data.size();i++){
+        for (int i = 0; i < data.size(); i++) {
             storeName = data.get(i).split(",")[1];
-            storeInfo = "评分："+data.get(i).split(",")[2]+"  "+data.get(i).split(",")[3];
+            storeInfo = "评分：" + data.get(i).split(",")[2] + "  " + data.get(i).split(",")[3];
             storePic = data.get(i).split(",")[4];
-            resourceId = getResources().getIdentifier(storePic,"drawable",ctx.getPackageName());
-            Store store = new Store(storeName,storeInfo,resourceId);
+            resourceId = getResources().getIdentifier(storePic, "drawable", ctx.getPackageName());
+            Store store = new Store(storeName, storeInfo, resourceId);
             stores.add(store);
         }
     }
+
     public void initView() {
 
         initData();
@@ -213,6 +215,48 @@ public class FirstFragment extends Fragment {
 
     }
 
+    private void checkLocationPermission() {
+        if (!LocateUtil.isLocServiceEnable(getActivity().getApplicationContext())) {//检测是否开启定位服务
+            //未开启定位服务的操作
+            new AlertDialog.Builder(FirstFragment.this.getContext())
+                    .setTitle("定位服务未开启")
+                    .setMessage("请先开启定位服务以允许应用访问您的位置")
+                    .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // 转到手机设置界面，用户设置GPS
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivityForResult(intent, 0); // 设置完成后返回到原来的界面
+
+                        }
+                    }).show();
+        } else {//检测用户是否将当前应用的定位权限拒绝
+            int checkResult = LocateUtil.checkOp(getActivity().getApplicationContext(), 2, AppOpsManager.OPSTR_FINE_LOCATION);//其中2代表AppOpsManager.OP_GPS，如果要判断悬浮框权限，第二个参数需换成24即AppOpsManager。OP_SYSTEM_ALERT_WINDOW及，第三个参数需要换成AppOpsManager.OPSTR_SYSTEM_ALERT_WINDOW
+            int checkResult2 = LocateUtil.checkOp(getActivity().getApplicationContext(), 1, AppOpsManager.OPSTR_FINE_LOCATION);
+            if (AppOpsManagerCompat.MODE_IGNORED == checkResult || AppOpsManagerCompat.MODE_IGNORED == checkResult2) {
+                //未开启定位权限或者被拒绝的操作
+                new AlertDialog.Builder(FirstFragment.this.getContext())
+                        .setTitle("应用定位权限未授权")
+                        .setMessage("请先授权应用定位以允许应用访问您的位置")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // 转到手机设置界面，用户设置GPS
+                                Intent intent = new Intent();
+                                intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                                startActivity(intent);
+                            }
+                        }).show();
+            }
+        }
+    }
     /**
      * 与地图有关的操作
      */
@@ -344,7 +388,7 @@ public class FirstFragment extends Fragment {
         baiduMap.setMyLocationEnabled(false);
     }
 
-    public static ArrayList<Store> getStores(){
+    public static ArrayList<Store> getStores() {
 
         return stores;
     }

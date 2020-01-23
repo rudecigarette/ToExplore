@@ -1,9 +1,11 @@
 package com.example.materialtest.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -19,7 +21,9 @@ import com.bumptech.glide.Glide;
 import com.example.materialtest.R;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.models.Store;
+import com.example.materialtest.utils.AppBarLayoutStateChangeListener;
 import com.example.materialtest.utils.ReadtxtUtil;
+import com.example.materialtest.utils.StatusBarUtils;
 import com.zhuang.likeviewlibrary.LikeView;
 
 import java.io.InputStream;
@@ -34,6 +38,7 @@ public class StoreActivity extends AppCompatActivity {
     private String Storename = null;
     public FloatingActionButton floatingActionButton;
     public TextView likecountTextView;
+    AppBarLayout appBarLayout;
     LikeView likeView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +57,23 @@ public class StoreActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         collapsingToolbar.setTitle(Storename);
-
-
+        appBarLayout = findViewById(R.id.appBar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayoutStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, AppBarLayoutStateChangeListener.State state) {
+                switch (state) {
+                    case EXPANDED:
+                        StatusBarUtils.setTransparent(StoreActivity.this);
+                        break;
+                    case COLLAPSED:
+                        StatusBarUtils.setColor(StoreActivity.this,getResources().getColor(R.color.colorPrimary));
+                        break;
+                    case INTERMEDIATE:
+                        StatusBarUtils.setTransparent(StoreActivity.this);
+                        break;
+                }
+            }
+        });
         int fruitImageId = getFruitImageId(Storename);
         if(fruitImageId!=0){
             Glide.with(this).load(fruitImageId).into(fruitImageView);

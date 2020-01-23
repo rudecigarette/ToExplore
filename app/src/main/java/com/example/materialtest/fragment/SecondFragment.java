@@ -13,16 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.materialtest.R;
-import com.example.materialtest.activities.Test;
 import com.example.materialtest.adapter.FruitAdapter;
-import com.example.materialtest.models.Fruit;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.utils.ReadtxtUtil;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class SecondFragment extends Fragment {

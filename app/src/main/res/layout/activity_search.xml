@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SearchActivity">
-<android.support.v7.widget.SearchView
-    android:id="@+id/searchview"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:orientation="vertical"
 
-</android.support.v7.widget.SearchView>
+    >
+    <include layout="@layout/nav_bar"></include>
+    <LinearLayout
+        android:layout_marginTop="@dimen/marginsize"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_weight="1">
 
+        <android.support.v7.widget.SearchView
+            android:id="@+id/searchEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_selector"
+            android:queryHint="请输入物品名称">
+        </android.support.v7.widget.SearchView>
 
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:visibility="gone"
-        android:layout_height="wrap_content"
-        android:text="search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_weight="8">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/searchRecycleView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+</LinearLayout>
