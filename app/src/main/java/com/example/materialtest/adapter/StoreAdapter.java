@@ -34,7 +34,7 @@ public class StoreAdapter extends  RecyclerView.Adapter<StoreAdapter.MyViewHolde
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Store store = stores.get(position);
         holder.textViewChinese.setText(store.getStoreInfo().toString());
         holder.textViewNumber.setText(position+1+"");
@@ -47,6 +47,7 @@ public class StoreAdapter extends  RecyclerView.Adapter<StoreAdapter.MyViewHolde
             public void onClick(View view) {
                 Intent intent = new Intent(holder.itemView.getContext(), StoreActivity.class);
                 intent.putExtra("StoreName",holder.textViewEnglish.getText().toString());
+                intent.putExtra("StoreId",position);
                 holder.itemView.getContext().startActivity(intent);
             }
         });

@@ -107,6 +107,8 @@ public class UserUtils {
         userModel.setPassward(EncryptUtils.encryptMD5ToString(passward));
         userModel.setPhone(phone);
         saveUser(userModel);
+        //将注册信息存入数据库
+        MysqlUtil.insertOneUser(phone,passward);
         return true;
     }
     /*

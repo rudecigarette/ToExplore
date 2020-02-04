@@ -18,7 +18,6 @@ public class StoreInfo {
         this.comment = comment;
         this.click = click;
     }
-
     public String getShopname() {
         return shopname;
     }

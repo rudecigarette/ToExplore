@@ -42,6 +42,7 @@ import com.example.materialtest.R;
 import com.example.materialtest.activities.MainActivity;
 import com.example.materialtest.adapter.StoreAdapter;
 import com.example.materialtest.models.Store;
+import com.example.materialtest.models.StoreClick;
 import com.example.materialtest.models.StoreInfo;
 import com.example.materialtest.utils.LocateUtil;
 import com.example.materialtest.utils.MysqlUtil;
@@ -55,6 +56,7 @@ import java.util.List;
 
 
 public class FirstFragment extends Fragment {
+    public static ArrayList<StoreClick> allStoreClickInfos = new ArrayList<>();
     public static MapView mMapView = null;
     public static LocationClient mLocationClient;
     public static LocationClient yLocationClient;
@@ -76,7 +78,7 @@ public class FirstFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_first, container, false);
-//        getAllStoreInfo();
+       MysqlUtil.getAllStoreClickInfo();
         initView();
         checkLocationPermission();
 

@@ -4,7 +4,9 @@ import android.os.StrictMode;
 
 import com.example.materialtest.activities.MainActivity;
 import com.example.materialtest.activities.StoreActivity;
+import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.models.Store;
+import com.example.materialtest.models.StoreClick;
 import com.example.materialtest.models.StoreInfo;
 
 import java.sql.Connection;
@@ -49,9 +51,15 @@ public class MysqlUtil {
 
 
     }//测试成功，jar用5.0的就好啦
-    public static int clickcount;
+    public static int clickcount = 0;
     private static ArrayList<StoreInfo> storeInfos = new ArrayList<>();
-
+    public static int id;
+    public static String shopname;
+    public static float star;
+    public static String typename;
+    public static String Ename;
+    public static String comment;
+    public static int click;
 
 
     public static boolean clickPlus(final String shopname){
@@ -92,13 +100,18 @@ public class MysqlUtil {
         return true;
     }//点赞
 
-    public static int getClick(final String shopname){
-        conn = getConnection("shop");
+    public static void getClick(final String shopname){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                conn = getConnection("shop");
+            }
+        }).start();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(800);
                     if(conn == null) System.out.println("conn为空！！！");
                     PreparedStatement sql2=conn.prepareStatement("select * from shop1 where shopname=?");
                     sql2.setString(1,shopname);   //获取id为3(k)的商家的信息
@@ -115,7 +128,6 @@ public class MysqlUtil {
                 }
             }
         }).start();
-        return clickcount;
     }//获取点赞数
 
     public static Connection getConnection(final String DBName){
@@ -145,25 +157,59 @@ public class MysqlUtil {
 /**
  * 从数据库获取所有商家信息
  */
-    public static void getAllStoreInfo() throws SQLException, InterruptedException {
-        if(conn == null){
-            System.out.println("conn为空！！！");
-        }
-        PreparedStatement sql = conn.prepareStatement("select * from shop1");
-        ResultSet res = sql.executeQuery();
-        if(res == null){
-            System.out.println("res为空！！！");
-        }
-        while (res.next()) {
-            int id = res.getInt(1);//获取该商家原本的点赞数click
-            String shopname = res.getString(2);
-            float star = res.getFloat(3);
-            String typename = res.getString(4);
-            String Ename = res.getString(5);
-            String comment = res.getString(6);
-            int click = res.getInt(8);
-            storeInfos.add(new StoreInfo(id, shopname, star, typename, Ename, comment, click));
-        }
-        MainActivity.allStoreInfo = storeInfos;
+    public static void getAllStoreClickInfo(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                conn = getConnection("shop");
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    PreparedStatement sql = conn.prepareStatement("select distinct click from shop1");
+                    ResultSet res = sql.executeQuery();
+                    FirstFragment.allStoreClickInfos.clear();
+                    while (res.next()) {
+                        click = res.getInt(1);
+                        FirstFragment.allStoreClickInfos.add(new StoreClick(click));
+                    }
+                    System.out.println("数据集初始化完毕！");
+        } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
+    }
+
+
+    public static void insertOneUser(final String phone, final String password){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                conn = getConnection("shop");
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    if(conn==null) System.out.println("conn为空！");
+                    PreparedStatement sql = conn.prepareStatement("insert into cumstomer(phone,password) values(?,?)");
+                    sql.setString(1, phone);
+                    sql.setString(2, password);
+                    sql.executeUpdate();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

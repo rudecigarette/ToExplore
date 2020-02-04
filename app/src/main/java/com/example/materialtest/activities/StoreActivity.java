@@ -44,6 +44,7 @@ public class StoreActivity extends AppCompatActivity {
     public static StoreInfo storeInfo = null;
     public static ArrayList<StoreInfo> allStoreInfo = new ArrayList<>();
     private String Storename = null;
+    private int StoreId = 0;
     public FloatingActionButton floatingActionButton;
     public TextView likecountTextView;
     AppBarLayout appBarLayout;
@@ -53,6 +54,7 @@ public class StoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
         Intent intent = getIntent();
+        StoreId = intent.getIntExtra("StoreId",0);
         Storename = intent.getStringExtra("StoreName");
         Toolbar toolbar = findViewById(R.id.toolbar);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)
@@ -100,28 +102,15 @@ public class StoreActivity extends AppCompatActivity {
             }
         });
         likecountTextView = findViewById(R.id.likecountTextView);
-        likecount = 0;
+        System.out.println("FF中allStoreClickInfo的长度是"+FirstFragment.allStoreClickInfos.size()+"!!!");
+        likecount = getClick(StoreId);
 //        使用handler来处理ui更新
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what){
-                    case UPDATE_TEXT:
-                        likecountTextView.setText(likecount+"");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
-        new Thread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Message message = new Message();
-                message.what = UPDATE_TEXT;
-                handler.sendMessage(message);
+                likecountTextView.setText(likecount+"");
             }
-        }).start();
+        });
         likeView = findViewById(R.id.likeView);
         likeView.setOnLikeListeners(new LikeView.OnLikeListeners() {
             @Override
@@ -129,14 +118,12 @@ public class StoreActivity extends AppCompatActivity {
 //              如果是第一次点击
                 if(!isCancel){
                     likecount++;
-                    new Thread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Message message = new Message();
-                            message.what = UPDATE_TEXT;
-                            handler.sendMessage(message);
+                            likecountTextView.setText(likecount+"");
                         }
-                    }).start();
+                    });
                     MysqlUtil.clickPlus(Storename);
                 }
                 else{
@@ -147,6 +134,14 @@ public class StoreActivity extends AppCompatActivity {
         });
     }
 
+    public int getClick(int StoreId){
+        if(StoreId < FirstFragment.allStoreClickInfos.size()){
+           return FirstFragment.allStoreClickInfos.get(StoreId).getClick();
+        }else {
+            return 0;
+        }
+
+    }
     public int getFruitImageId(String Storename){
         sources = FirstFragment.getStores();
         if(sources.size()!=0){
@@ -164,6 +159,12 @@ public class StoreActivity extends AppCompatActivity {
             fruitContent.append(fruitName);
         }
         return fruitContent.toString();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MysqlUtil.getAllStoreClickInfo();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
