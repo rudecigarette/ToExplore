@@ -21,8 +21,12 @@ import com.example.materialtest.adapter.FragmentAdapter;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.fragment.SecondFragment;
 import com.example.materialtest.fragment.ThirdFragment;
+import com.example.materialtest.models.StoreInfo;
+import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.NoScrollViewPager;
 import com.example.materialtest.utils.StatusBarUtils;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bnv;
     private NoScrollViewPager mViewPager;
     public static AppBarLayout mAppBarLayout;
+    public static ArrayList<StoreInfo> allStoreInfo = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

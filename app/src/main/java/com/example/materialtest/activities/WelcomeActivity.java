@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.materialtest.R;
+import com.example.materialtest.models.StoreInfo;
+import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 

@@ -42,11 +42,14 @@ import com.example.materialtest.R;
 import com.example.materialtest.activities.MainActivity;
 import com.example.materialtest.adapter.StoreAdapter;
 import com.example.materialtest.models.Store;
+import com.example.materialtest.models.StoreInfo;
 import com.example.materialtest.utils.LocateUtil;
+import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.ReadtxtUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,13 +70,16 @@ public class FirstFragment extends Fragment {
     RecyclerView recyclerView;
     StoreAdapter myAdapter;
     public static ArrayList<Store> stores = new ArrayList<>();
+    public static ArrayList<StoreInfo> storeInfos = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_first, container, false);
+//        getAllStoreInfo();
         initView();
         checkLocationPermission();
+
 
         /**
          *权限申请

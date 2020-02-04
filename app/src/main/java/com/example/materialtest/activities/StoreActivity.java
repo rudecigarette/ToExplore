@@ -21,12 +21,18 @@ import com.bumptech.glide.Glide;
 import com.example.materialtest.R;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.models.Store;
+import com.example.materialtest.models.StoreInfo;
 import com.example.materialtest.utils.AppBarLayoutStateChangeListener;
+import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.ReadtxtUtil;
 import com.example.materialtest.utils.StatusBarUtils;
 import com.zhuang.likeviewlibrary.LikeView;
 
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +41,8 @@ public class StoreActivity extends AppCompatActivity {
     private Handler handler;
     private int likecount = 0;
     private ArrayList<Store> sources = new ArrayList<>();
+    public static StoreInfo storeInfo = null;
+    public static ArrayList<StoreInfo> allStoreInfo = new ArrayList<>();
     private String Storename = null;
     public FloatingActionButton floatingActionButton;
     public TextView likecountTextView;
@@ -92,6 +100,7 @@ public class StoreActivity extends AppCompatActivity {
             }
         });
         likecountTextView = findViewById(R.id.likecountTextView);
+        likecount = 0;
 //        使用handler来处理ui更新
         handler = new Handler(){
             @Override
@@ -117,20 +126,26 @@ public class StoreActivity extends AppCompatActivity {
         likeView.setOnLikeListeners(new LikeView.OnLikeListeners() {
             @Override
             public void like(boolean isCancel) {
-                likecount++;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Message message = new Message();
-                        message.what = UPDATE_TEXT;
-                        handler.sendMessage(message);
-                    }
-                }).start();
+//              如果是第一次点击
+                if(!isCancel){
+                    likecount++;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Message message = new Message();
+                            message.what = UPDATE_TEXT;
+                            handler.sendMessage(message);
+                        }
+                    }).start();
+                    MysqlUtil.clickPlus(Storename);
+                }
+                else{
+                    //不是第一次点击就啥都不干
+                }
+
             }
         });
     }
-
-
 
     public int getFruitImageId(String Storename){
         sources = FirstFragment.getStores();
