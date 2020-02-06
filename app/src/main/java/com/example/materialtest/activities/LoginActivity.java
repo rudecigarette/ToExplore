@@ -12,6 +12,7 @@ import com.example.materialtest.R;
 import com.example.materialtest.Views.inputView;
 import com.example.materialtest.db.User;
 import com.example.materialtest.helps.UserHelp;
+import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
 
@@ -59,6 +60,7 @@ public class LoginActivity extends BaseActivity {
         Toast.makeText(this,"登录成功", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
+        MysqlUtil.getUserCollection(phone);
         finish();
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.materialtest.R;
+import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.models.StoreInfo;
 import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.StatusBarUtils;
@@ -37,6 +38,7 @@ public class WelcomeActivity extends BaseActivity {
                 //toMain();
                 if(isLogin){
                     toMain();
+                    MysqlUtil.getUserCollection(UserHelp.getInstance().getPhone());
                 }else {
                     toLogin();
                 }

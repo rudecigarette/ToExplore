@@ -80,11 +80,14 @@ public class FirstFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_first, container, false);
-       MysqlUtil.getAllStoreClickInfo();
         initView();
         checkLocationPermission();
-
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        MysqlUtil.getAllStoreClickInfo();
         /**
          *权限申请
          */

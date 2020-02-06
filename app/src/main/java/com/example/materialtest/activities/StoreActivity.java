@@ -14,14 +14,19 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.materialtest.R;
+import com.example.materialtest.db.User;
 import com.example.materialtest.fragment.FirstFragment;
+import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.models.StoreInfo;
+import com.example.materialtest.models.StoreName;
 import com.example.materialtest.utils.AppBarLayoutStateChangeListener;
 import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.ReadtxtUtil;
@@ -49,6 +54,7 @@ public class StoreActivity extends AppCompatActivity {
     public TextView likecountTextView;
     AppBarLayout appBarLayout;
     LikeView likeView;
+    Switch aSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,14 +107,25 @@ public class StoreActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(intent,"选择分享应用"));
             }
         });
+        aSwitch = findViewById(R.id.collectSwitch);
+        aSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(aSwitch.isChecked()){
+                    MysqlUtil.collectOneStore(Storename,UserHelp.getInstance().getPhone().toString());
+                }else{
+                    MysqlUtil.uncollectOneStore(Storename,UserHelp.getInstance().getPhone().toString());
+                }
+            }
+        });
         likecountTextView = findViewById(R.id.likecountTextView);
-        System.out.println("FF中allStoreClickInfo的长度是"+FirstFragment.allStoreClickInfos.size()+"!!!");
         likecount = getClick(StoreId);
 //        使用handler来处理ui更新
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 likecountTextView.setText(likecount+"");
+                aSwitch.setChecked(ifCollect(Storename));
             }
         });
         likeView = findViewById(R.id.likeView);
@@ -133,7 +150,17 @@ public class StoreActivity extends AppCompatActivity {
             }
         });
     }
-
+    public boolean ifCollect(String StoreName){
+        String Collection = MysqlUtil.Collection;
+        if(Collection==null) return false;
+        String[] collectedStores = Collection.split("\\|");
+        for(int i = 0;i<collectedStores.length;i++){
+            if(collectedStores[i].equals(StoreName)){
+                return true;
+            }
+        }
+        return false;
+    }
     public int getClick(int StoreId){
         if(StoreId < FirstFragment.allStoreClickInfos.size()){
            return FirstFragment.allStoreClickInfos.get(StoreId).getClick();
