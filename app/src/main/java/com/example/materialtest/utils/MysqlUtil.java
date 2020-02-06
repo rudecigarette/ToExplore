@@ -8,6 +8,7 @@ import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.models.StoreClick;
 import com.example.materialtest.models.StoreInfo;
+import com.example.materialtest.models.StoreName;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -170,12 +171,18 @@ public class MysqlUtil {
             public void run() {
                 try {
                     Thread.sleep(1000);
-                    PreparedStatement sql = conn.prepareStatement("select distinct click from shop1");
+                    PreparedStatement sql = conn.prepareStatement("select click from shop1");
                     ResultSet res = sql.executeQuery();
                     FirstFragment.allStoreClickInfos.clear();
                     while (res.next()) {
                         click = res.getInt(1);
                         FirstFragment.allStoreClickInfos.add(new StoreClick(click));
+                    }
+                    sql = conn.prepareStatement("select shopname from shop1");
+                    res = sql.executeQuery();
+                    while(res.next()){
+                        shopname = res.getString(1);
+                        FirstFragment.allStoreNameInfos.add(new StoreName(shopname));
                     }
                     System.out.println("数据集初始化完毕！");
         } catch (InterruptedException e) {

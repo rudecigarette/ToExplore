@@ -44,6 +44,7 @@ import com.example.materialtest.adapter.StoreAdapter;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.models.StoreClick;
 import com.example.materialtest.models.StoreInfo;
+import com.example.materialtest.models.StoreName;
 import com.example.materialtest.utils.LocateUtil;
 import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.ReadtxtUtil;
@@ -57,6 +58,7 @@ import java.util.List;
 
 public class FirstFragment extends Fragment {
     public static ArrayList<StoreClick> allStoreClickInfos = new ArrayList<>();
+    public static ArrayList<StoreName> allStoreNameInfos = new ArrayList<>();
     public static MapView mMapView = null;
     public static LocationClient mLocationClient;
     public static LocationClient yLocationClient;
