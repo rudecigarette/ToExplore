@@ -16,9 +16,8 @@ public class MysqlUtil {
     public static ArrayList<String> allPhones = new ArrayList<>();
     public static ArrayList<String> allPasswords = new ArrayList<>();
     public static Connection conn = null;
-    public static int id;
+    public static int id = -1;
     public static String passwordFromSql = "";
-    public static boolean checkResult = false;
     public static String shopname;
     public static int click;
     public static String Collection = null;
@@ -132,7 +131,7 @@ public class MysqlUtil {
             public void run() {
                 try {
                     if(conn == null) return;
-                    Collection+="|"+StoreName;
+                    Collection+="|"+StoreName+",";
                     PreparedStatement sql = conn.prepareStatement("update cumstomer set collectshop = ? where phone = ?");
                     sql.setString(1,Collection);
                     sql.setString(2,Username);
@@ -148,7 +147,7 @@ public class MysqlUtil {
             public void run() {
                 try {
                     if(conn == null) return;
-                    Collection = Collection.replace("|"+StoreName,"");
+                    Collection = removeSubString("|"+StoreName+",",Collection);
                     PreparedStatement sql = conn.prepareStatement("update cumstomer set collectshop = ? where phone = ?");
                     sql.setString(1,Collection);
                     sql.setString(2,Username);
@@ -165,9 +164,15 @@ public class MysqlUtil {
                 try {
                     Thread.sleep(1000);
                     if(conn==null) System.out.println("conn为空！");
-                    PreparedStatement sql = conn.prepareStatement("insert into cumstomer(phone,password) values(?,?)");
+                    PreparedStatement sql = conn.prepareStatement("select count(*) from cumstomer");
+                    ResultSet resultSet = sql.executeQuery();
+                    while(resultSet.next()){
+                        id = resultSet.getInt(1);
+                    }
+                    sql = conn.prepareStatement("insert into cumstomer(phone,password,id) values(?,?,?)");
                     sql.setString(1, phone);
                     sql.setString(2, password);
+                    sql.setInt(3,id+1);
                     sql.executeUpdate();
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
@@ -211,9 +216,18 @@ public class MysqlUtil {
                 }}}).start();
     }
     public static boolean validateUserInfo(final String phone , final String password){
+        boolean result = false;
         int phoneindex = allPhones.indexOf(phone);
-        int passwordindex = allPasswords.indexOf(password);
-        if(phoneindex == passwordindex) checkResult = true;
-        return checkResult;
+        if(allPasswords.get(phoneindex).equals(password)){
+            result = true;
+        }
+        return result;
+    }
+   	public static String removeSubString(String zi,String zhu) {
+        StringBuilder zhuchuan = new StringBuilder(zhu);
+        int index = zhuchuan.indexOf(zi);
+        if (index == -1) return null;
+        zhuchuan.delete(index, index + zi.length());
+        return zhuchuan.toString();
     }
 }

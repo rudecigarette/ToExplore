@@ -43,9 +43,9 @@ public class RealmHelper {
      * 验证用户信息
      */
     public boolean validateUser(String phone,String passward){
-        boolean result = false;
-        result = MysqlUtil.validateUserInfo(phone,passward);
-        return result;
+        boolean mresult = false;
+        mresult = MysqlUtil.validateUserInfo(phone,passward);
+        return mresult;
     }
     /**
      * 获取当前用户

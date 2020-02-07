@@ -21,6 +21,7 @@ import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.models.StoreInfo;
+import com.example.materialtest.models.StoreName;
 import com.example.materialtest.utils.AppBarLayoutStateChangeListener;
 import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.StatusBarUtils;
@@ -95,13 +96,20 @@ public class StoreActivity extends AppCompatActivity {
             }
         });
         aSwitch = findViewById(R.id.collectSwitch);
+        ArrayList<StoreName> allStoreNames= FirstFragment.allStoreNameInfos;
+        final ArrayList<String> storenames = new ArrayList<>();
+        for(int i = 0;i<allStoreNames.size();i++){
+            storenames.add(allStoreNames.get(i).getStoreName());
+        }
+        int StoreId = storenames.indexOf(Storename)+1;
+        final String Storeid = String.valueOf(StoreId);
         aSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(aSwitch.isChecked()){
-                    MysqlUtil.collectOneStore(Storename,UserHelp.getInstance().getPhone().toString());
+                    MysqlUtil.collectOneStore(Storeid,UserHelp.getInstance().getPhone().toString());
                 }else{
-                    MysqlUtil.uncollectOneStore(Storename,UserHelp.getInstance().getPhone().toString());
+                    MysqlUtil.uncollectOneStore(Storeid,UserHelp.getInstance().getPhone().toString());
                 }
             }
         });
@@ -140,9 +148,12 @@ public class StoreActivity extends AppCompatActivity {
     public boolean ifCollect(String StoreName){
         String Collection = MysqlUtil.Collection;
         if(Collection==null) return false;
-        String[] collectedStores = Collection.split("\\|");
+        String[] collectedStores = Collection.split(",|\\|");
         for(int i = 0;i<collectedStores.length;i++){
-            if(collectedStores[i].equals(StoreName)){
+            if(collectedStores[i].equals("")){
+                continue;
+            }else{
+                if(sources.get(Integer.parseInt(collectedStores[i])-1).getStoreName().equals(StoreName))
                 return true;
             }
         }
