@@ -10,10 +10,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MysqlUtil {
+    public static ArrayList<String> allPhones = new ArrayList<>();
+    public static ArrayList<String> allPasswords = new ArrayList<>();
     public static Connection conn = null;
     public static int id;
+    public static String passwordFromSql = "";
+    public static boolean checkResult = false;
     public static String shopname;
     public static int click;
     public static String Collection = null;
@@ -70,7 +75,7 @@ public class MysqlUtil {
         return conn;
 
     }//获取和数据库的连接
-    public static void getAllStoreClickInfo(){
+    public static void getAllStoreClickandNameInfo(){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -157,13 +162,6 @@ public class MysqlUtil {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                conn = getConnection("shop");
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
                 try {
                     Thread.sleep(1000);
                     if(conn==null) System.out.println("conn为空！");
@@ -178,5 +176,44 @@ public class MysqlUtil {
                 }
             }
         }).start();
+    }
+    public static void getAllPhoneAndPassword(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                conn = getConnection("shop");
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    if(conn == null) return;
+                    PreparedStatement sql = conn.prepareStatement("select phone from cumstomer");
+                    ResultSet res = sql.executeQuery();
+                    while (res.next()) {
+                        allPhones.add(res.getString(1));
+                    }
+                    System.out.println("allPhones数据初始化完毕！");
+
+                    sql = conn.prepareStatement("select password from cumstomer");
+                    res = sql.executeQuery();
+                    while (res.next()) {
+                        allPasswords.add(res.getString(1));
+                    }
+                    System.out.println("allPasswords数据初始化完毕！");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
+    }
+    public static boolean validateUserInfo(final String phone , final String password){
+        int phoneindex = allPhones.indexOf(phone);
+        int passwordindex = allPasswords.indexOf(password);
+        if(phoneindex == passwordindex) checkResult = true;
+        return checkResult;
     }
 }

@@ -1,25 +1,15 @@
 package com.example.materialtest.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.materialtest.R;
 import com.example.materialtest.Views.inputView;
-import com.example.materialtest.db.User;
-import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
-
-import org.litepal.LitePal;
-import org.litepal.crud.LitePalSupport;
-
-import java.util.List;
 
 public class LoginActivity extends BaseActivity {
 
@@ -28,8 +18,8 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initView();
+        MysqlUtil.getAllPhoneAndPassword();
     }
     /*
     * 初始化View

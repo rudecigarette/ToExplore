@@ -1,6 +1,7 @@
 package com.example.materialtest.helps;
 
 import com.example.materialtest.models.UserModel;
+import com.example.materialtest.utils.MysqlUtil;
 
 import java.util.List;
 
@@ -43,13 +44,7 @@ public class RealmHelper {
      */
     public boolean validateUser(String phone,String passward){
         boolean result = false;
-        RealmQuery<UserModel> query = mRealm.where(UserModel.class);
-        query = query.equalTo("phone",phone)
-                .equalTo("passward",passward);
-        UserModel userModel = query.findFirst();
-        if(userModel!=null){
-            result=true;
-        }
+        result = MysqlUtil.validateUserInfo(phone,passward);
         return result;
     }
     /**

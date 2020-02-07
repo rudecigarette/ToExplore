@@ -51,7 +51,6 @@ import com.example.materialtest.utils.ReadtxtUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.InputStream;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +86,7 @@ public class FirstFragment extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        MysqlUtil.getAllStoreClickInfo();
+        MysqlUtil.getAllStoreClickandNameInfo();
         /**
          *权限申请
          */

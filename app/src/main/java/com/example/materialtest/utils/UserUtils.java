@@ -15,6 +15,7 @@ import com.example.materialtest.helps.RealmHelper;
 import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.models.UserModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -44,7 +45,7 @@ public class UserUtils {
             return false;
         }
         RealmHelper realmHelper = new RealmHelper();
-        boolean result = realmHelper.validateUser(phone,EncryptUtils.encryptMD5ToString(passward));
+        boolean result = realmHelper.validateUser(phone,passward);
         realmHelper.close();
         if(!result){
             Toast.makeText(context,"当前输入手机号或密码不正确",Toast.LENGTH_SHORT).show();
@@ -124,16 +125,13 @@ public class UserUtils {
      */
     public static boolean userExitsFromPhone(String phone){
         boolean result = false;
-        RealmHelper realmHelper = new RealmHelper();
-        List<UserModel> allUser = realmHelper.getAllUser();
-        for(UserModel userModel : allUser){
-            if(userModel.getPhone().equals(phone)){
-//                当前手机号已经存在于数据库中
-                result=true;
+        ArrayList<String> allPhones = MysqlUtil.allPhones;
+        for(String p : allPhones){
+            if(p.equals(phone)){
+                result = true;
                 break;
             }
         }
-        realmHelper.close();
         return result;
     }
     /**

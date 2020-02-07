@@ -1,10 +1,7 @@
 package com.example.materialtest.activities;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -14,32 +11,22 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.materialtest.R;
-import com.example.materialtest.db.User;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.models.StoreInfo;
-import com.example.materialtest.models.StoreName;
 import com.example.materialtest.utils.AppBarLayoutStateChangeListener;
 import com.example.materialtest.utils.MysqlUtil;
-import com.example.materialtest.utils.ReadtxtUtil;
 import com.example.materialtest.utils.StatusBarUtils;
 import com.zhuang.likeviewlibrary.LikeView;
 
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class StoreActivity extends AppCompatActivity {
     public static final int UPDATE_TEXT = 1;
@@ -191,7 +178,7 @@ public class StoreActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MysqlUtil.getAllStoreClickInfo();
+        MysqlUtil.getAllStoreClickandNameInfo();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

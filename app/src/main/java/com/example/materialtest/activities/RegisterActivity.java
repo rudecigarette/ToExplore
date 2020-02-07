@@ -1,28 +1,16 @@
 package com.example.materialtest.activities;
 
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.RegexUtils;
 import com.example.materialtest.R;
 import com.example.materialtest.Views.inputView;
-import com.example.materialtest.db.User;
-import com.example.materialtest.db.dbthread;
 import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
 
-import org.litepal.LitePal;
-
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class RegisterActivity extends BaseActivity{
     public static Connection conn;
@@ -61,6 +49,7 @@ public class RegisterActivity extends BaseActivity{
 //            注册完成后后退到登陆页面
         if(result){
             Toast.makeText(this,"注册成功",Toast.LENGTH_SHORT).show();
+            MysqlUtil.getAllPhoneAndPassword();
             onBackPressed();
         }
 
