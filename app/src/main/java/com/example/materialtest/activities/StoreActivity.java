@@ -101,7 +101,7 @@ public class StoreActivity extends AppCompatActivity {
         for(int i = 0;i<allStoreNames.size();i++){
             storenames.add(allStoreNames.get(i).getStoreName());
         }
-        int StoreId = storenames.indexOf(Storename)+1;
+        int StoreId = storenames.indexOf(Storename);
         final String Storeid = String.valueOf(StoreId);
         aSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +150,7 @@ public class StoreActivity extends AppCompatActivity {
         if(Collection==null) return false;
         String[] collectedStores = Collection.split(",|\\|");
         for(int i = 0;i<collectedStores.length;i++){
-            if(collectedStores[i].equals("")){
+            if(collectedStores[i].equals("")||collectedStores[i].equals("null")){
                 continue;
             }else{
                 if(sources.get(Integer.parseInt(collectedStores[i])-1).getStoreName().equals(StoreName))

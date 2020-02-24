@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.TestLooperManager;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.materialtest.R;
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
     private ImageView mynv_back;
     private TextView mytv_title;
     /*

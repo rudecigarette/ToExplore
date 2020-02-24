@@ -35,5 +35,6 @@ dependencies {
     implementation 'org.litepal.android:core:2.0.0'
     implementation 'com.sothree.slidinguppanel:library:3.3.0'
     implementation 'com.zhuang:likeview:2.0'
+    implementation 'jp.wasabeef:recyclerview-animators:2.2.7'
     implementation files('libs/mysql-connector-java-5.1.48.jar')
 }

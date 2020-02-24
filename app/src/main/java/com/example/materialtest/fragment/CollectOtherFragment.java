@@ -10,13 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.materialtest.R;
 
-
-
-public class ThirdFragment extends Fragment {
-
+public class CollectOtherFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_third, container, false);
         return view;
     }
 }
-

@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        设置viewpager
         mViewPager = findViewById(R.id.view_pager);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.setNoScroll(true);
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FirstFragment());

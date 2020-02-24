@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+
 
 public class SecondFragment extends Fragment {
     @Nullable
@@ -47,7 +49,7 @@ public class SecondFragment extends Fragment {
             GridLayoutManager layoutManager = new GridLayoutManager(this.getActivity(), 2);
             recyclerView.setLayoutManager(layoutManager);
             adapter = new FruitAdapter(stores);
-            recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(new AlphaInAnimationAdapter(adapter));
         return view;
     }
     private void refreshFruits() {
