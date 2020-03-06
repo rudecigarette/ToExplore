@@ -103,13 +103,14 @@ public class StoreActivity extends AppCompatActivity {
         }
         int StoreId = storenames.indexOf(Storename);
         final String Storeid = String.valueOf(StoreId);
+        final String Storei = String.valueOf(StoreId+1);
         aSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(aSwitch.isChecked()){
-                    MysqlUtil.collectOneStore(Storeid,UserHelp.getInstance().getPhone().toString());
+                    MysqlUtil.collectOneStore(Storei,UserHelp.getInstance().getPhone().toString());
                 }else{
-                    MysqlUtil.uncollectOneStore(Storeid,UserHelp.getInstance().getPhone().toString());
+                    MysqlUtil.uncollectOneStore(Storei,UserHelp.getInstance().getPhone().toString());
                 }
             }
         });
@@ -180,7 +181,7 @@ public class StoreActivity extends AppCompatActivity {
     }
     private String generateFruitContent(String fruitName) {
         StringBuilder fruitContent = new StringBuilder();
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 100; i++) {
             fruitContent.append(fruitName);
         }
         return fruitContent.toString();

@@ -21,14 +21,18 @@
         android:name=".DemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/launcher"
-        tools:replace="android:label"
         android:label="Explore"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activities.StoreActivity" android:theme="@style/FruitActivityTheme"></activity>
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
+        <activity
+            android:name=".activities.StoreActivity"
+            android:theme="@style/FruitActivityTheme" />
         <activity android:name=".activities.SearchActivity" />
         <activity android:name=".activities.PoiSearchDemo" />
-        <activity android:name=".activities.FruitActivity" android:theme="@style/FruitActivityTheme"/>
+        <activity
+            android:name=".activities.FruitActivity"
+            android:theme="@style/FruitActivityTheme" />
         <activity android:name=".activities.SetMsgActivity" />
         <activity android:name=".activities.ChangePasswardActivity" />
         <activity android:name=".activities.MeActivity" />
