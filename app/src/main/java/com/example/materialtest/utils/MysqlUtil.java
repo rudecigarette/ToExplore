@@ -70,9 +70,7 @@ public class MysqlUtil {
                 }
             }
         }).start();
-
         return conn;
-
     }//获取和数据库的连接
     public static void getAllStoreClickandNameInfo(){
         new Thread(new Runnable() {

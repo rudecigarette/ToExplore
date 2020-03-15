@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.materialtest.R;
+import com.example.materialtest.adapter.RecommdListAdapter;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.models.Store;
@@ -24,6 +27,7 @@ import com.example.materialtest.models.StoreInfo;
 import com.example.materialtest.models.StoreName;
 import com.example.materialtest.utils.AppBarLayoutStateChangeListener;
 import com.example.materialtest.utils.MysqlUtil;
+import com.example.materialtest.utils.SpacesItemDecoration;
 import com.example.materialtest.utils.StatusBarUtils;
 import com.zhuang.likeviewlibrary.LikeView;
 
@@ -43,6 +47,7 @@ public class StoreActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     LikeView likeView;
     Switch aSwitch;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,7 @@ public class StoreActivity extends AppCompatActivity {
                 findViewById(R.id.collapsing_toolbar);
         ImageView fruitImageView = findViewById(R.id.fruit_image_view);
         TextView fruitContentText = findViewById(R.id.fruit_content_text);
+        recyclerView = findViewById(R.id.RecommdListRV);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -145,6 +151,16 @@ public class StoreActivity extends AppCompatActivity {
 
             }
         });
+
+        initRv();
+    }
+    public void initRv(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        RecommdListAdapter adapter = new RecommdListAdapter();
+        recyclerView.addItemDecoration(new SpacesItemDecoration(16));
+        recyclerView.setAdapter(adapter);
     }
     public boolean ifCollect(String StoreName){
         String Collection = MysqlUtil.Collection;
@@ -181,7 +197,7 @@ public class StoreActivity extends AppCompatActivity {
     }
     private String generateFruitContent(String fruitName) {
         StringBuilder fruitContent = new StringBuilder();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 40; i++) {
             fruitContent.append(fruitName);
         }
         return fruitContent.toString();
