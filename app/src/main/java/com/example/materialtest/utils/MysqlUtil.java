@@ -228,4 +228,28 @@ public class MysqlUtil {
         zhuchuan.delete(index, index + zi.length());
         return zhuchuan.toString();
     }
+    public static void choseLabel(final String p,final String userPhone) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (conn == null) return;
+                    String s="";
+                    PreparedStatement sql3=conn.prepareStatement("select * from cumstomer where phone=?");
+                    sql3.setString(1,userPhone);   //假设当前与用户id为1，获取id为1的用户的信息
+                    ResultSet res=sql3.executeQuery();
+                    while(res.next())
+                    {
+                        s=res.getString("label");             //获取该用户已选的标签内容
+                    }
+                    PreparedStatement sql=conn.prepareStatement("update cumstomer set label=? where phone =?");
+                    sql.setString(1,s+"|"+p); //第一个参数(标签)设置为s+p
+                    sql.setString(2,userPhone); //第二个参数(id)为该用户的id
+                    sql.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 }

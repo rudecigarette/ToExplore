@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.settings:
                 Toast.makeText(this, "You clicked Settings", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, SearchActivity.class));
+                startActivity(new Intent(this, ChoseLabelActivity.class));
                 break;
             case R.id.search:
                 startActivity(new Intent(this, SearchActivity.class));

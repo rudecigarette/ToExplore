@@ -25,6 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
+        <activity android:name=".activities.ChoseLabelActivity"></activity>
         <activity
             android:name=".activities.StoreActivity"
             android:theme="@style/FruitActivityTheme" />
