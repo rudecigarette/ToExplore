@@ -26,8 +26,8 @@
                 android:layout_marginStart="112dp"
                 android:layout_marginLeft="112dp"
                 android:text="TextView"
+                android:textColor="#000000"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/textViewChinese"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
                 app:layout_constraintTop_toTopOf="parent" />

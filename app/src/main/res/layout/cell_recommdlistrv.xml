@@ -22,6 +22,7 @@
                 android:layout_height="120dp" />
 
             <TextView
+                android:textColor="#000000"
                 android:id="@+id/StoretextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

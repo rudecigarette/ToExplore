@@ -23,6 +23,7 @@ import com.example.materialtest.adapter.RecommdListAdapter;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.models.Store;
+import com.example.materialtest.models.StoreDetail;
 import com.example.materialtest.models.StoreInfo;
 import com.example.materialtest.models.StoreName;
 import com.example.materialtest.utils.AppBarLayoutStateChangeListener;
@@ -37,6 +38,8 @@ public class StoreActivity extends AppCompatActivity {
     public static final int UPDATE_TEXT = 1;
     private Handler handler;
     private int likecount = 0;
+    public String storePhone;
+    public String openTime;
     private ArrayList<Store> sources = new ArrayList<>();
     public static StoreInfo storeInfo = null;
     public static ArrayList<StoreInfo> allStoreInfo = new ArrayList<>();
@@ -44,6 +47,8 @@ public class StoreActivity extends AppCompatActivity {
     private int StoreId = 0;
     public FloatingActionButton floatingActionButton;
     public TextView likecountTextView;
+    public TextView open_time;
+    public TextView store_phone;
     AppBarLayout appBarLayout;
     LikeView likeView;
     Switch aSwitch;
@@ -56,6 +61,8 @@ public class StoreActivity extends AppCompatActivity {
         StoreId = intent.getIntExtra("StoreId",0);
         Storename = intent.getStringExtra("StoreName");
         Toolbar toolbar = findViewById(R.id.toolbar);
+        open_time = findViewById(R.id.open_time);
+        store_phone = findViewById(R.id.store_phone);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)
                 findViewById(R.id.collapsing_toolbar);
         ImageView fruitImageView = findViewById(R.id.fruit_image_view);
@@ -108,6 +115,7 @@ public class StoreActivity extends AppCompatActivity {
             storenames.add(allStoreNames.get(i).getStoreName());
         }
         int StoreId = storenames.indexOf(Storename);
+        initStoreDetails(StoreId%10);
         final String Storeid = String.valueOf(StoreId);
         final String Storei = String.valueOf(StoreId+1);
         aSwitch.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +136,9 @@ public class StoreActivity extends AppCompatActivity {
             public void run() {
                 likecountTextView.setText(likecount+"");
                 aSwitch.setChecked(ifCollect(Storename));
+                store_phone.setText("商家电话："+storePhone);
+                open_time.setText("营业时间："+openTime);
+
             }
         });
         likeView = findViewById(R.id.likeView);
@@ -197,18 +208,23 @@ public class StoreActivity extends AppCompatActivity {
     }
     private String generateFruitContent(String fruitName) {
         StringBuilder fruitContent = new StringBuilder();
+        fruitContent.append("商家详情：");
         for (int i = 0; i < 40; i++) {
             fruitContent.append(fruitName);
         }
         return fruitContent.toString();
     }
-
+    public void initStoreDetails(int StoreId){
+        if(StoreId+1<=FirstFragment.storeDetails.size()){
+            storePhone = FirstFragment.storeDetails.get(StoreId).getStorePhone();
+            openTime = FirstFragment.storeDetails.get(StoreId).getOpenTime();
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         MysqlUtil.getAllStoreClickandNameInfo();
     }
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

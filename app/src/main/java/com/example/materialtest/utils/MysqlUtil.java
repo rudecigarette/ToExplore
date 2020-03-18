@@ -3,6 +3,7 @@ package com.example.materialtest.utils;
 
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.models.StoreClick;
+import com.example.materialtest.models.StoreDetail;
 import com.example.materialtest.models.StoreName;
 
 import java.sql.Connection;
@@ -251,5 +252,24 @@ public class MysqlUtil {
                 }
             }
         }).start();
+    }
+    public static void getStoreDetails(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(conn==null) return;
+                    PreparedStatement sql = conn.prepareStatement("select * from shop_detail_info");
+                    ResultSet res = sql.executeQuery();
+                    FirstFragment.storeDetails.clear();
+                    while (res.next()) {
+                        String storePhone = res.getString(4);
+                        String openTime = res.getString(3);
+                        FirstFragment.storeDetails.add(new StoreDetail(storePhone,openTime));
+                    }
+                    System.out.println("storeDetails数据集更新完毕！");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
     }
 }

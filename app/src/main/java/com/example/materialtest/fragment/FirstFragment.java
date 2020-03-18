@@ -43,6 +43,7 @@ import com.example.materialtest.activities.MainActivity;
 import com.example.materialtest.adapter.StoreAdapter;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.models.StoreClick;
+import com.example.materialtest.models.StoreDetail;
 import com.example.materialtest.models.StoreInfo;
 import com.example.materialtest.models.StoreName;
 import com.example.materialtest.utils.LocateUtil;
@@ -74,7 +75,7 @@ public class FirstFragment extends Fragment {
     StoreAdapter myAdapter;
     public static ArrayList<Store> stores = new ArrayList<>();
     public static ArrayList<StoreInfo> storeInfos = new ArrayList<>();
-
+    public static ArrayList<StoreDetail> storeDetails = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class FirstFragment extends Fragment {
             e.printStackTrace();
         }
         MysqlUtil.getAllStoreClickandNameInfo();
+        MysqlUtil.getStoreDetails();
         /**
          *权限申请
          */
