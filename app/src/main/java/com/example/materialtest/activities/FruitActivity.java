@@ -96,7 +96,6 @@ public class FruitActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)
                 findViewById(R.id.collapsing_toolbar);
         ImageView fruitImageView = findViewById(R.id.fruit_image_view);
-        TextView fruitContentText = findViewById(R.id.fruit_content_text);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -105,7 +104,6 @@ public class FruitActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(fruitName);
         Glide.with(this).load(fruitImageId).into(fruitImageView);
         String fruitContent = generateFruitContent(fruitName);
-        fruitContentText.setText(fruitContent);
     }
     private String generateFruitContent(String fruitName) {
         StringBuilder fruitContent = new StringBuilder();

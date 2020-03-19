@@ -1,5 +1,6 @@
 package com.example.materialtest.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,14 +10,17 @@ import android.widget.Toast;
 import com.example.materialtest.R;
 import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.utils.MysqlUtil;
+import com.example.materialtest.utils.StatusBarUtils;
 import com.example.materialtest.utils.UserUtils;
 
-public class ChoseLabelActivity extends AppCompatActivity {
+public class ChoseLabelActivity extends BaseActivity {
     public static String p = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chose_label);
+        initNavbar(false,"选择您喜欢的标签");
+        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));
         Button button2 =(Button) findViewById(R.id.button2);
         final String userPhone = UserHelp.getInstance().getPhone();
         button2.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +28,8 @@ public class ChoseLabelActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MysqlUtil.choseLabel(p,userPhone);
                 Toast.makeText(ChoseLabelActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ChoseLabelActivity.this,MainActivity.class));
+                finish();
             }
         });
 
@@ -34,6 +40,7 @@ public class ChoseLabelActivity extends AppCompatActivity {
                 String i="";
                 Button button =(Button) findViewById(R.id.button);
                 i= (String) button.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -47,6 +54,7 @@ public class ChoseLabelActivity extends AppCompatActivity {
                 Button button3 =(Button) findViewById(R.id.button3);
                 i= (String) button3.getText();
                 p=p+i+"|";
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
         });

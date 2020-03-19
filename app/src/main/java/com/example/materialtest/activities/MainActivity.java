@@ -92,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent_toCollection = new Intent(MainActivity.this,CollectionActivity.class);
                         startActivity(intent_toCollection);
                         break;
+                    case R.id.label:
+                        startActivity(new Intent(MainActivity.this,ChoseLabelActivity.class));
+                        break;
                 }
                 mDrawerLayout.closeDrawers();
                 return true;

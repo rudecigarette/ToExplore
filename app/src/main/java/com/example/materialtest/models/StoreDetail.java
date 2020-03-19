@@ -3,6 +3,15 @@ package com.example.materialtest.models;
 public class StoreDetail {
     private String storePhone;
     private String openTime;
+    private String shopDetail;
+
+    public String getShopDetail() {
+        return shopDetail;
+    }
+
+    public void setShopDetail(String shopDetail) {
+        this.shopDetail = shopDetail;
+    }
 
     public String getStorePhone() {
         return storePhone;
@@ -19,8 +28,9 @@ public class StoreDetail {
     public void setOpenTime(String openTime) {
         this.openTime = openTime;
     }
-    public StoreDetail(String storePhone,String openTime){
+    public StoreDetail(String storePhone,String openTime,String shopDetail){
         this.openTime = openTime;
         this.storePhone = storePhone;
+        this.shopDetail = shopDetail;
     }
 }

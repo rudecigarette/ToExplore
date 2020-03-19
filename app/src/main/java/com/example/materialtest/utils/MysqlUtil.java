@@ -265,7 +265,8 @@ public class MysqlUtil {
                     while (res.next()) {
                         String storePhone = res.getString(4);
                         String openTime = res.getString(3);
-                        FirstFragment.storeDetails.add(new StoreDetail(storePhone,openTime));
+                        String shopDetail = res.getString(5);
+                        FirstFragment.storeDetails.add(new StoreDetail(storePhone,openTime,shopDetail));
                     }
                     System.out.println("storeDetails数据集更新完毕！");
                 } catch (SQLException e) {

@@ -40,6 +40,7 @@ public class StoreActivity extends AppCompatActivity {
     private int likecount = 0;
     public String storePhone;
     public String openTime;
+    public String storeDetail;
     private ArrayList<Store> sources = new ArrayList<>();
     public static StoreInfo storeInfo = null;
     public static ArrayList<StoreInfo> allStoreInfo = new ArrayList<>();
@@ -49,6 +50,7 @@ public class StoreActivity extends AppCompatActivity {
     public TextView likecountTextView;
     public TextView open_time;
     public TextView store_phone;
+    public TextView shopDetail;
     AppBarLayout appBarLayout;
     LikeView likeView;
     Switch aSwitch;
@@ -63,10 +65,10 @@ public class StoreActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         open_time = findViewById(R.id.open_time);
         store_phone = findViewById(R.id.store_phone);
+        shopDetail = findViewById(R.id.storeDetail);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)
                 findViewById(R.id.collapsing_toolbar);
         ImageView fruitImageView = findViewById(R.id.fruit_image_view);
-        TextView fruitContentText = findViewById(R.id.fruit_content_text);
         recyclerView = findViewById(R.id.RecommdListRV);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -95,8 +97,6 @@ public class StoreActivity extends AppCompatActivity {
         if(fruitImageId!=0){
             Glide.with(this).load(fruitImageId).into(fruitImageView);
         }
-        String fruitContent = generateFruitContent(Storename);
-        fruitContentText.setText(fruitContent);
         floatingActionButton = findViewById(R.id.shareFAB);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +138,7 @@ public class StoreActivity extends AppCompatActivity {
                 aSwitch.setChecked(ifCollect(Storename));
                 store_phone.setText("商家电话："+storePhone);
                 open_time.setText("营业时间："+openTime);
-
+                shopDetail.setText("商家详情："+storeDetail);
             }
         });
         likeView = findViewById(R.id.likeView);
@@ -206,18 +206,11 @@ public class StoreActivity extends AppCompatActivity {
         }
         return 0;
     }
-    private String generateFruitContent(String fruitName) {
-        StringBuilder fruitContent = new StringBuilder();
-        fruitContent.append("商家详情：");
-        for (int i = 0; i < 40; i++) {
-            fruitContent.append(fruitName);
-        }
-        return fruitContent.toString();
-    }
     public void initStoreDetails(int StoreId){
         if(StoreId+1<=FirstFragment.storeDetails.size()){
             storePhone = FirstFragment.storeDetails.get(StoreId).getStorePhone();
             openTime = FirstFragment.storeDetails.get(StoreId).getOpenTime();
+            storeDetail = FirstFragment.storeDetails.get(StoreId).getShopDetail();
         }
     }
     @Override

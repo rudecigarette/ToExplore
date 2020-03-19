@@ -10,5 +10,9 @@
             android:id="@+id/collection"
             android:icon="@mipmap/collection"
             android:title="我的收藏" />
+        <item
+            android:id="@+id/label"
+            android:icon="@mipmap/label"
+            android:title="我的标签" />
     </group>
 </menu>

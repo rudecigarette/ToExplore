@@ -20,7 +20,7 @@
     <application
         android:name=".DemoApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/launcher"
+        android:icon="@mipmap/icon2"
         android:label="Explore"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -39,7 +39,7 @@
         <activity android:name=".activities.MeActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.MainActivity" android:launchMode="singleTask"/>
         <activity android:name=".activities.WordActivity" />
         <activity android:name=".activities.CollectionActivity" />
 
@@ -49,7 +49,7 @@
 
         <activity
             android:name=".activities.WelcomeActivity"
-            android:label="Demo">
+            android:label="ToExplore">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
