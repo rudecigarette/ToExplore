@@ -1,6 +1,7 @@
 package com.example.materialtest.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,13 +9,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.materialtest.MainActivity;
 import com.example.materialtest.R;
+import com.example.materialtest.activities.shareActivity;
 import com.example.materialtest.adapter.FruitAdapter;
+import com.example.materialtest.models.Share;
 import com.example.materialtest.models.Store;
+import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.ReadtxtUtil;
 
 import java.io.InputStream;
@@ -26,13 +33,14 @@ import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 
 public class SecondFragment extends Fragment {
     @Nullable
-    private List<Store> stores = new ArrayList<>();
+    private List<Share> shares = new ArrayList<>();
+
 
     private FruitAdapter adapter;
 
     private SwipeRefreshLayout swipeRefresh;
 
-
+    private Button shareButton = null;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_second, container, false);
             swipeRefresh = view.findViewById(R.id.swipe_refresh);
@@ -43,12 +51,21 @@ public class SecondFragment extends Fragment {
                     refreshFruits();
                 }
             });
-
+            shareButton = view.findViewById(R.id.shareBtn);
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(),shareActivity.class);
+                    startActivity(intent);
+                }
+            });
             initFruits();
             RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-            GridLayoutManager layoutManager = new GridLayoutManager(this.getActivity(), 2);
+//            GridLayoutManager layoutManager = new GridLayoutManager(this.getActivity(), 2);
+        StaggeredGridLayoutManager layoutManager =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(layoutManager);
-            adapter = new FruitAdapter(stores);
+            adapter = new FruitAdapter(shares);
             recyclerView.setAdapter(new AlphaInAnimationAdapter(adapter));
         return view;
     }
@@ -64,7 +81,8 @@ public class SecondFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        initFruits();
+                        MysqlUtil.getShares();
+                        shares = FirstFragment.shares;
                         adapter.notifyDataSetChanged();
                         swipeRefresh.setRefreshing(false);
                     }
@@ -73,24 +91,7 @@ public class SecondFragment extends Fragment {
         }).start();
     }
     private void initFruits() {
-        InputStream inputStream = getResources().openRawResource(R.raw.storeinfo);
-        String storeName = "";
-        String storeInfo = "";
-        String storePic = "";
-        int resourceId ;
-        List<String> data = ReadtxtUtil.getString(inputStream);
-        Context ctx = getContext();
-
-
-
-        for(int i=0;i<data.size();i++){
-            storeName = data.get(i).split(",")[1];
-            storeInfo = "评分："+data.get(i).split(",")[2]+"  "+data.get(i).split(",")[3];
-            storePic = data.get(i).split(",")[4];
-            resourceId = getResources().getIdentifier(storePic,"drawable",ctx.getPackageName());
-            Store store = new Store(storeName,storeInfo,resourceId);
-            stores.add(store);
-        }
+            shares = FirstFragment.shares;
     }
 }
 

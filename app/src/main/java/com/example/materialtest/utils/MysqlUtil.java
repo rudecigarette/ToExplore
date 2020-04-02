@@ -2,6 +2,7 @@ package com.example.materialtest.utils;
 
 
 import com.example.materialtest.fragment.FirstFragment;
+import com.example.materialtest.models.Share;
 import com.example.materialtest.models.StoreClick;
 import com.example.materialtest.models.StoreDetail;
 import com.example.materialtest.models.StoreName;
@@ -12,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import io.realm.annotations.PrimaryKey;
 
 public class MysqlUtil {
     public static ArrayList<String> allPhones = new ArrayList<>();
@@ -272,5 +275,54 @@ public class MysqlUtil {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }}}).start();
+    }
+    public static void publishSharing(final String userId, final String shopname, final String title, final String text){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(conn==null) return;
+                    int id =0;
+                    PreparedStatement sql=conn.prepareStatement("select * from strategy");
+                    ResultSet res=sql.executeQuery();
+                    while (res.next()) {
+                        id=res.getInt("textid");   //获取上一个攻略的编号
+                    }
+                    id++;
+                    sql=conn.prepareStatement("insert into strategy values(?,?,?,?,?)");
+                    sql.setInt(1,id); //第一个参数为攻略编号
+                    sql.setString(2,userId); //第二个参数用户的id，假设当前用户id为1
+                    sql.setString(3,shopname);  //设置评价的店家名称
+                    sql.setString(4,title);    //设置标题
+                    sql.setString(5,text);     //设置内容
+                    sql.executeUpdate();
+                    System.out.println("上传share数据完毕！");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
+    }
+    public static void getShares(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(conn==null) return;
+                    int id =0;
+                    PreparedStatement sql=conn.prepareStatement("select * from strategy");
+                    ResultSet res=sql.executeQuery();
+                    FirstFragment.shares.clear();
+                    while (res.next()) {
+                        String uid=res.getString("uid");
+                        String shopname=res.getString("shopname");
+                        String title=res.getString("title");
+                        String text=res.getString("text");
+                        FirstFragment.shares.add(new Share(text,title,"用户"+uid,shopname));
+                    }
+
+                    System.out.println("shares数据集更新完毕！");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
+
     }
 }

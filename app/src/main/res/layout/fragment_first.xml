@@ -100,10 +100,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10sp"
                 android:text="点击收起面板"
                 android:layout_marginTop="4dp"
                 android:layout_gravity="center_horizontal"/>
             <View style="@style/line"></View>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/myfirstRecycleView"
                 android:layout_width="match_parent"

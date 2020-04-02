@@ -41,6 +41,7 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 import com.example.materialtest.R;
 import com.example.materialtest.activities.MainActivity;
 import com.example.materialtest.adapter.StoreAdapter;
+import com.example.materialtest.models.Share;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.models.StoreClick;
 import com.example.materialtest.models.StoreDetail;
@@ -76,6 +77,7 @@ public class FirstFragment extends Fragment {
     public static ArrayList<Store> stores = new ArrayList<>();
     public static ArrayList<StoreInfo> storeInfos = new ArrayList<>();
     public static ArrayList<StoreDetail> storeDetails = new ArrayList<>();
+    public static ArrayList<Share> shares = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,6 +91,7 @@ public class FirstFragment extends Fragment {
         }
         MysqlUtil.getAllStoreClickandNameInfo();
         MysqlUtil.getStoreDetails();
+        MysqlUtil.getShares();
         /**
          *权限申请
          */

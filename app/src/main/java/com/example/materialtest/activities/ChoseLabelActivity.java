@@ -41,6 +41,7 @@ public class ChoseLabelActivity extends BaseActivity {
                 Button button =(Button) findViewById(R.id.button);
                 i= (String) button.getText();
                 v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -55,6 +56,7 @@ public class ChoseLabelActivity extends BaseActivity {
                 i= (String) button3.getText();
                 p=p+i+"|";
                 v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button3.setEnabled(false);
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
         });
@@ -66,6 +68,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button4 =(Button) findViewById(R.id.button4);
                 i= (String) button4.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button4.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -77,6 +81,8 @@ public class ChoseLabelActivity extends BaseActivity {
             public void onClick(View v) {
                 String i="";
                 Button button5 =(Button) findViewById(R.id.button5);
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button5.setEnabled(false);
                 i= (String) button5.getText();
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
@@ -90,6 +96,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button6 =(Button) findViewById(R.id.button6);
                 i= (String) button6.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button6.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -102,6 +110,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button7 =(Button) findViewById(R.id.button7);
                 i= (String) button7.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button7.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -114,6 +124,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button8 =(Button) findViewById(R.id.button8);
                 i= (String) button8.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button8.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -126,6 +138,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button9 =(Button) findViewById(R.id.button9);
                 i= (String) button9.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button9.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -138,6 +152,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button10 =(Button) findViewById(R.id.button10);
                 i= (String) button10.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button10.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -150,6 +166,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button11 =(Button) findViewById(R.id.button11);
                 i= (String) button11.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button11.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -162,6 +180,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button12 =(Button) findViewById(R.id.button12);
                 i= (String) button12.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button12.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -174,6 +194,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button13 =(Button) findViewById(R.id.button13);
                 i= (String) button13.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button13.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -186,6 +208,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button14 =(Button) findViewById(R.id.button14);
                 i= (String) button14.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button14.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -198,6 +222,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button15 =(Button) findViewById(R.id.button15);
                 i= (String) button15.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button15.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -210,6 +236,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button16 =(Button) findViewById(R.id.button16);
                 i= (String) button16.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button16.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -222,6 +250,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button17 =(Button) findViewById(R.id.button17);
                 i= (String) button17.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button17.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -234,6 +264,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button18 =(Button) findViewById(R.id.button18);
                 i= (String) button18.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button18.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -246,6 +278,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button19 =(Button) findViewById(R.id.button19);
                 i= (String) button19.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button19.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -270,6 +304,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button21 =(Button) findViewById(R.id.button21);
                 i= (String) button21.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button21.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -282,6 +318,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button22 =(Button) findViewById(R.id.button22);
                 i= (String) button22.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button22.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -294,6 +332,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button23 =(Button) findViewById(R.id.button23);
                 i= (String) button23.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button23.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -306,6 +346,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button24 =(Button) findViewById(R.id.button24);
                 i= (String) button24.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button24.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }
@@ -318,6 +360,8 @@ public class ChoseLabelActivity extends BaseActivity {
                 String i="";
                 Button button25 =(Button) findViewById(R.id.button25);
                 i= (String) button25.getText();
+                v.setBackgroundColor(getResources().getColor(R.color.colorHighlight));
+                button25.setEnabled(false);
                 p=p+i+"|";
                 Toast.makeText(ChoseLabelActivity.this, "缓存成功", Toast.LENGTH_SHORT).show();
             }

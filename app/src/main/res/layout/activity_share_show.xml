@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/marginsize"
+        android:layout_marginRight="@dimen/marginsize"
+        android:gravity="center_horizontal"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/showtitle"
+            android:text="showtitle"
+            android:textSize="32sp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="italic"
+            android:textColor="@color/colorAccent"
+            android:layout_marginTop="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+        <View style="@style/line"></View>
+        <TextView
+            android:id="@+id/showcontent"
+            android:layout_marginTop="20dp"
+            android:text="content"
+            android:lineSpacingExtra="10dp"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+        <TextView
+            android:id="@+id/showshopname"
+            android:layout_marginTop="30dp"
+            android:text="showshopname"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp"
+            android:textColor="@color/YELLOW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <TextView
+            android:id="@+id/showuser"
+            android:layout_marginTop="20dp"
+            android:text="showuser"
+            android:textSize="12sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+
+    </LinearLayout>
+</LinearLayout>

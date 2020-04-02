@@ -25,7 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity android:name=".activities.ChoseLabelActivity"></activity>
+        <activity android:name=".activities.ShareShowActivity"></activity>
+        <activity android:name=".activities.shareActivity" />
+        <activity android:name=".activities.ChoseLabelActivity" />
         <activity
             android:name=".activities.StoreActivity"
             android:theme="@style/FruitActivityTheme" />
@@ -39,7 +41,9 @@
         <activity android:name=".activities.MeActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.MainActivity" android:launchMode="singleTask"/>
+        <activity
+            android:name=".activities.MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activities.WordActivity" />
         <activity android:name=".activities.CollectionActivity" />
 

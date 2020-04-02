@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardCornerRadius="4dp">
+
     <LinearLayout
-        android:orientation="vertical"
+        android:padding="@dimen/marginsize"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/fruit_image"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <TextView
-            android:id="@+id/fruit_name"
-            android:textColor="#000000"
+            android:id="@+id/shareshopname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:textSize="16sp" />
+            android:text="商家名称"
+            android:textColor="@color/colorPrimaryDark"></TextView>
+
+        <TextView
+            android:id="@+id/sharecontent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享内容">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/sharetitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享标题"
+            android:textColor="@color/colorAccent">
+
+        </TextView>
+
+
+        <TextView
+            android:id="@+id/shareuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享用户"
+            android:textColor="#000000"
+            android:textSize="12sp" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

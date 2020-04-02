@@ -1,38 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_height="match_parent">-->
+<!--    <LinearLayout-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingLeft="4dp"-->
+<!--        android:gravity="center">-->
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@mipmap/findings"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Share Your Findings！"-->
+<!--            android:textColor="@color/colorPrimaryDark"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:typeface="serif"-->
+<!--            android:textSize="20dp" />-->
+<!--    </LinearLayout>-->
+
+<!--    <android.support.v4.widget.SwipeRefreshLayout-->
+<!--        android:id="@+id/swipe_refresh"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="?attr/actionBarSize"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+<!--    <android.support.v7.widget.RecyclerView-->
+<!--        android:id="@+id/recycler_view"-->
+<!--        android:layout_marginTop="?attr/actionBarSize"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
+
+<!--    </android.support.v4.widget.SwipeRefreshLayout>-->
+<!--    <android.support.design.widget.FloatingActionButton-->
+<!--        android:id="@+id/topublish"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignBottom="@id/swipe_refresh"-->
+<!--        android:layout_alignRight="@id/swipe_refresh"-->
+<!--        android:layout_marginRight="@dimen/marginsize"-->
+<!--        android:backgroundTint="@color/colorAccent"-->
+<!--        android:src="@drawable/ic_done" />-->
+
+<!--</RelativeLayout>-->
+<LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
-        android:paddingLeft="4dp"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal"
+            android:paddingLeft="4dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/findings"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share Your Findings！"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginLeft="10dp"
+                android:typeface="serif"
+                android:textSize="20dp" />
+        </LinearLayout>
+    <Button
+        style="@style/commitBtn"
+        android:id="@+id/shareBtn"
+        android:text="发表我的分享" />
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/findings"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Share Your Findings！"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginLeft="10dp"
-            android:typeface="serif"
-            android:textSize="20dp" />
-    </LinearLayout>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-</RelativeLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
+</LinearLayout>
