@@ -3,6 +3,7 @@ package com.example.materialtest.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,6 @@ public class RecommdListAdapter extends RecyclerView.Adapter<RecommdListAdapter.
         if (mContext == null) {
             mContext = parent.getContext();
         }
-        initData();
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.cell_recommdlistrv,parent,false);
         return new RecommdListAdapter.MyViewHolder(itemView);
@@ -52,7 +52,7 @@ public class RecommdListAdapter extends RecyclerView.Adapter<RecommdListAdapter.
 
     @Override
     public int getItemCount() {
-        return 5;
+        return Recommdstores.size();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -65,7 +65,4 @@ public class RecommdListAdapter extends RecyclerView.Adapter<RecommdListAdapter.
         }
     }
 
-    public void initData(){
-        setStores(FirstFragment.stores);
-    }
 }

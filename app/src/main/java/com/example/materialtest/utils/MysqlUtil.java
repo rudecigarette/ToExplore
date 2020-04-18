@@ -1,6 +1,8 @@
 package com.example.materialtest.utils;
 
 
+import com.baidu.mapapi.common.SysOSUtil;
+import com.example.materialtest.activities.StoreActivity;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.models.Share;
 import com.example.materialtest.models.StoreClick;
@@ -25,6 +27,11 @@ public class MysqlUtil {
     public static String shopname;
     public static int click;
     public static String Collection = null;
+    public static String lookshop = null;
+    public static int UserId;
+    public static int UserId2;
+    public static int UserId3;
+    public static String LabelRec=null;
     public static boolean clickPlus(final String shopname){
         new Thread(new Runnable() {
             @Override
@@ -323,6 +330,111 @@ public class MysqlUtil {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }}}).start();
+
+    }
+    public static void addLookShop(final String phoneNum, final String storeId){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(conn==null) return;
+                    PreparedStatement sql=conn.prepareStatement("select lookshop from cumstomer where phone = ?");
+                    sql.setString(1,phoneNum);
+                    ResultSet res=sql.executeQuery();
+                    while (res.next()) {
+                        lookshop=res.getString("lookshop");
+                    }
+                    int isExist = lookshop.indexOf("|"+storeId+",");
+                    if(isExist==-1){
+                        lookshop +="|"+storeId+",";
+                    }
+
+                    sql=conn.prepareStatement("update cumstomer set lookshop = ? where phone = ?");
+                    sql.setString(1,lookshop);
+                    sql.setString(2,phoneNum);
+                    sql.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
+    }
+    public static String getLabelRec(final String phoneNum){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(conn==null) return;
+                    PreparedStatement sql=conn.prepareStatement("select id from cumstomer where phone = ?");
+                    sql.setString(1,phoneNum);
+                    ResultSet res=sql.executeQuery();
+                    while (res.next()) {
+                        UserId=res.getInt("id");
+                        System.out.println(UserId);
+                    }
+                    sql=conn.prepareStatement("select rec from customerlabelrec where uid =?");
+                    sql.setString(1,UserId+"");
+                    res = sql.executeQuery();
+                    while(res.next()){
+                        StoreActivity.LabelRec = res.getString(1);
+                        System.out.println(StoreActivity.LabelRec);
+                    }
+                    System.out.println("刷新labelRec成功！");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
+
+        return LabelRec;
+    }
+    public static void getHistoryRec(final String phoneNum){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(conn==null) return;
+                    PreparedStatement sql=conn.prepareStatement("select id from cumstomer where phone = ?");
+                    sql.setString(1,phoneNum);
+                    ResultSet res=sql.executeQuery();
+                    while (res.next()) {
+                        UserId2=res.getInt("id");
+                    }
+                    sql=conn.prepareStatement("select s_sid from nmf_rec where uid =?");
+                    sql.setString(1,UserId2+"");
+                    res = sql.executeQuery();
+                    FirstFragment.historyRec.clear();
+                    while(res.next()){
+                        int sid = (int)res.getDouble(1)-1;
+                        FirstFragment.historyRec.add (FirstFragment.stores.get(sid));
+                    }
+                    System.out.println("刷新historyRec成功！");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
+    }
+    public static void getGuessyoulikeRec(final String phoneNum){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(conn==null) return;
+                    PreparedStatement sql=conn.prepareStatement("select id from cumstomer where phone = ?");
+                    sql.setString(1,phoneNum);
+                    ResultSet res=sql.executeQuery();
+                    while (res.next()) {
+                        UserId3=res.getInt("id");
+                    }
+                    sql=conn.prepareStatement("select shopid from slop_rec where uid =?");
+                    sql.setString(1,UserId3+"");
+                    res = sql.executeQuery();
+                    FirstFragment.guessyoulikeRec.clear();
+                    while(res.next()){
+                        int sid = (int)res.getDouble(1)-1;
+                        FirstFragment.guessyoulikeRec.add (FirstFragment.stores.get(sid));
+                    }
+                    System.out.println("刷新guessyoulikeRec成功！");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
+
 
     }
 }

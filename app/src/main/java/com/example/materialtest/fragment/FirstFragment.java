@@ -40,7 +40,9 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.example.materialtest.R;
 import com.example.materialtest.activities.MainActivity;
+import com.example.materialtest.activities.StoreActivity;
 import com.example.materialtest.adapter.StoreAdapter;
+import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.models.Share;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.models.StoreClick;
@@ -75,6 +77,9 @@ public class FirstFragment extends Fragment {
     RecyclerView recyclerView;
     StoreAdapter myAdapter;
     public static ArrayList<Store> stores = new ArrayList<>();
+    public static ArrayList<Store> labelRecStores = new ArrayList<>();
+    public static ArrayList<Store> historyRec = new ArrayList<>();
+    public static ArrayList<Store> guessyoulikeRec = new ArrayList<>();
     public static ArrayList<StoreInfo> storeInfos = new ArrayList<>();
     public static ArrayList<StoreDetail> storeDetails = new ArrayList<>();
     public static ArrayList<Share> shares = new ArrayList<>();
@@ -92,6 +97,9 @@ public class FirstFragment extends Fragment {
         MysqlUtil.getAllStoreClickandNameInfo();
         MysqlUtil.getStoreDetails();
         MysqlUtil.getShares();
+        StoreActivity.refreshLabelRecStores();
+        MysqlUtil.getGuessyoulikeRec(UserHelp.getInstance().getPhone());
+        MysqlUtil.getHistoryRec(UserHelp.getInstance().getPhone());
         /**
          *权限申请
          */

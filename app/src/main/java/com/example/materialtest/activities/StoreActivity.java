@@ -50,11 +50,15 @@ public class StoreActivity extends AppCompatActivity {
     public TextView likecountTextView;
     public TextView open_time;
     public TextView store_phone;
+    public TextView haveData;
     public TextView shopDetail;
+    public static String LabelRec;
     AppBarLayout appBarLayout;
     LikeView likeView;
     Switch aSwitch;
     private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
+    private RecyclerView recyclerView3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +68,20 @@ public class StoreActivity extends AppCompatActivity {
         Storename = intent.getStringExtra("StoreName");
         Toolbar toolbar = findViewById(R.id.toolbar);
         open_time = findViewById(R.id.open_time);
+        haveData = findViewById(R.id.haveData);
+        haveData.setVisibility(View.INVISIBLE);
         store_phone = findViewById(R.id.store_phone);
         shopDetail = findViewById(R.id.storeDetail);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)
                 findViewById(R.id.collapsing_toolbar);
         ImageView fruitImageView = findViewById(R.id.fruit_image_view);
         recyclerView = findViewById(R.id.RecommdListRV);
+        recyclerView2 = findViewById(R.id.RecommdListRV2);
+        recyclerView3 = findViewById(R.id.RecommdListRV3);
+        if(FirstFragment.labelRecStores.size()==0){
+            haveData.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -115,6 +127,7 @@ public class StoreActivity extends AppCompatActivity {
             storenames.add(allStoreNames.get(i).getStoreName());
         }
         int StoreId = storenames.indexOf(Storename);
+        MysqlUtil.addLookShop(UserHelp.getInstance().getPhone(),StoreId+1+"");
         initStoreDetails(StoreId%10);
         final String Storeid = String.valueOf(StoreId);
         final String Storei = String.valueOf(StoreId+1);
@@ -162,16 +175,53 @@ public class StoreActivity extends AppCompatActivity {
 
             }
         });
-
         initRv();
+        initRv2();
+        initRv3();
     }
     public void initRv(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         RecommdListAdapter adapter = new RecommdListAdapter();
+        adapter.setStores(FirstFragment.labelRecStores);
         recyclerView.addItemDecoration(new SpacesItemDecoration(16));
         recyclerView.setAdapter(adapter);
+    }
+    public void initRv2(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView2.setLayoutManager(linearLayoutManager);
+        RecommdListAdapter adapter = new RecommdListAdapter();
+        adapter.setStores(FirstFragment.historyRec);
+        recyclerView2.addItemDecoration(new SpacesItemDecoration(16));
+        recyclerView2.setAdapter(adapter);
+    }
+    public void initRv3(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView3.setLayoutManager(linearLayoutManager);
+        RecommdListAdapter adapter = new RecommdListAdapter();
+        adapter.setStores(FirstFragment.guessyoulikeRec);
+        recyclerView3.addItemDecoration(new SpacesItemDecoration(16));
+        recyclerView3.setAdapter(adapter);
+    }
+    public static void refreshLabelRecStores(){
+        FirstFragment.labelRecStores.clear();
+        MysqlUtil.getLabelRec(UserHelp.getInstance().getPhone());
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("获取到的LabelRec字符串为"+LabelRec);
+        if(LabelRec==null){
+            return;
+        }
+        String arr[] = LabelRec.split("\\|");
+        for(int i = 0;i<arr.length;i++){
+            FirstFragment.labelRecStores.add(FirstFragment.stores.get(Integer.parseInt(arr[i])-1));
+        }
     }
     public boolean ifCollect(String StoreName){
         String Collection = MysqlUtil.Collection;
@@ -217,6 +267,9 @@ public class StoreActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         MysqlUtil.getAllStoreClickandNameInfo();
+        StoreActivity.refreshLabelRecStores();
+        MysqlUtil.getGuessyoulikeRec(UserHelp.getInstance().getPhone());
+        MysqlUtil.getHistoryRec(UserHelp.getInstance().getPhone());
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
