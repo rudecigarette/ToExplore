@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ import com.example.materialtest.utils.StatusBarUtils;
 import com.zhuang.likeviewlibrary.LikeView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class StoreActivity extends AppCompatActivity {
     public static final int UPDATE_TEXT = 1;
@@ -59,6 +61,9 @@ public class StoreActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
     private RecyclerView recyclerView3;
+    private LinearLayout LL;
+    private LinearLayout LL2;
+    private LinearLayout LL3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +74,7 @@ public class StoreActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         open_time = findViewById(R.id.open_time);
         haveData = findViewById(R.id.haveData);
-        haveData.setVisibility(View.INVISIBLE);
+        haveData.setVisibility(View.GONE);
         store_phone = findViewById(R.id.store_phone);
         shopDetail = findViewById(R.id.storeDetail);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)
@@ -78,10 +83,13 @@ public class StoreActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.RecommdListRV);
         recyclerView2 = findViewById(R.id.RecommdListRV2);
         recyclerView3 = findViewById(R.id.RecommdListRV3);
-        if(FirstFragment.labelRecStores.size()==0){
-            haveData.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-        }
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView2.setNestedScrollingEnabled(false);
+        recyclerView3.setNestedScrollingEnabled(false);
+        LL = findViewById(R.id.LL);
+        LL2 = findViewById(R.id.LL2);
+        LL3 = findViewById(R.id.LL3);
+        setVisibility();
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -178,6 +186,44 @@ public class StoreActivity extends AppCompatActivity {
         initRv();
         initRv2();
         initRv3();
+    }
+    public void setVisibility(){
+        int RV_LENGTH = FirstFragment.labelRecStores.size();
+        int RV2_LENGTH = FirstFragment.historyRec.size();
+        int RV3_LENGTH = FirstFragment.guessyoulikeRec.size();
+//        若三个推荐结果都为空，则显示暂无数据
+        if(RV_LENGTH==0&&RV2_LENGTH==0&&RV3_LENGTH==0){
+            recyclerView.setVisibility(View.GONE);
+            LL2.setVisibility(View.GONE);
+            LL3.setVisibility(View.GONE);
+            haveData.setVisibility(View.VISIBLE);
+            return;
+        }
+//        若三个推荐的结果集都有数据，则随机显示一个集合的数据
+        if(RV_LENGTH!=0&&RV2_LENGTH!=0&&RV3_LENGTH!=0) {
+            Random random = new Random();
+            int index = random.nextInt(3);
+            switch (index) {
+                case 0:
+                    LL.setVisibility(View.VISIBLE);
+                    LL2.setVisibility(View.GONE);
+                    LL3.setVisibility(View.GONE);
+                    break;
+                case 1:
+                    LL.setVisibility(View.GONE);
+                    LL2.setVisibility(View.VISIBLE);
+                    LL3.setVisibility(View.GONE);
+                    break;
+                case 2:
+                    LL.setVisibility(View.GONE);
+                    LL2.setVisibility(View.GONE);
+                    LL3.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
     public void initRv(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());

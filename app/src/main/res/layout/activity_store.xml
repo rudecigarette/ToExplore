@@ -80,6 +80,8 @@
                 </TextView>
 
             </LinearLayout>
+
+
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,15 +112,10 @@
 </LinearLayout>
 
 
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="2dp"
-                app:cardCornerRadius="4dp">
+
+
 <LinearLayout
+    android:layout_marginTop="48dp"
     android:layout_width="wrap_content"
     android:orientation="horizontal"
     android:layout_height="wrap_content">
@@ -140,15 +137,11 @@
 </LinearLayout>
 
 
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="2dp"
-                app:cardCornerRadius="4dp">
+
+
+
 <LinearLayout
+    android:layout_marginTop="96dp"
     android:layout_width="wrap_content"
     android:orientation="horizontal"
     android:layout_height="wrap_content">
@@ -173,8 +166,10 @@
 
             </android.support.v7.widget.CardView>
 
-<!--推荐列表5-->
+<!--  LL1-->
+
             <LinearLayout
+                android:id="@+id/LL"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
@@ -210,8 +205,10 @@
                     android:id="@+id/RecommdListRV">
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
+<!--    LL2        -->
 
             <LinearLayout
+                android:id="@+id/LL2"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
@@ -235,8 +232,10 @@
                     android:id="@+id/RecommdListRV2">
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
+<!-- LL3-->
 
             <LinearLayout
+                android:id="@+id/LL3"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
