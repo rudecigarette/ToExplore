@@ -100,6 +100,7 @@ public class FirstFragment extends Fragment {
         StoreActivity.refreshLabelRecStores();
         MysqlUtil.getGuessyoulikeRec(UserHelp.getInstance().getPhone());
         MysqlUtil.getHistoryRec(UserHelp.getInstance().getPhone());
+        MysqlUtil.getUserLabel(UserHelp.getInstance().getPhone().toString());
         /**
          *权限申请
          */

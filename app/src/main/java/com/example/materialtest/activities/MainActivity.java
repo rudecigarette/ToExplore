@@ -21,6 +21,7 @@ import com.example.materialtest.adapter.FragmentAdapter;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.fragment.SecondFragment;
 import com.example.materialtest.fragment.ThirdFragment;
+import com.example.materialtest.helps.UserHelp;
 import com.example.materialtest.models.StoreInfo;
 import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.NoScrollViewPager;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static String UserLabel = null;
     private DrawerLayout mDrawerLayout;
     private BottomNavigationView bnv;
     private NoScrollViewPager mViewPager;

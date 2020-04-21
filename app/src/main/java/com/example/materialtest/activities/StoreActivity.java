@@ -13,10 +13,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.materialtest.R;
@@ -64,12 +66,12 @@ public class StoreActivity extends AppCompatActivity {
     private LinearLayout LL;
     private LinearLayout LL2;
     private LinearLayout LL3;
+    private Button buy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
         Intent intent = getIntent();
-        StoreId = intent.getIntExtra("StoreId",0);
         Storename = intent.getStringExtra("StoreName");
         Toolbar toolbar = findViewById(R.id.toolbar);
         open_time = findViewById(R.id.open_time);
@@ -89,6 +91,7 @@ public class StoreActivity extends AppCompatActivity {
         LL = findViewById(R.id.LL);
         LL2 = findViewById(R.id.LL2);
         LL3 = findViewById(R.id.LL3);
+        buy = findViewById(R.id.buy);
         setVisibility();
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -139,6 +142,14 @@ public class StoreActivity extends AppCompatActivity {
         initStoreDetails(StoreId%10);
         final String Storeid = String.valueOf(StoreId);
         final String Storei = String.valueOf(StoreId+1);
+        buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MysqlUtil.buyOneStore(Storei,UserHelp.getInstance().getPhone().toString());
+                Toast.makeText(StoreActivity.this,"添加购买成功！",Toast.LENGTH_SHORT).show();
+
+            }
+        });
         aSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,6 +209,71 @@ public class StoreActivity extends AppCompatActivity {
             LL3.setVisibility(View.GONE);
             haveData.setVisibility(View.VISIBLE);
             return;
+        }
+//        结果为空的数据集不显示
+        if(RV_LENGTH==0){
+            recyclerView.setVisibility(View.GONE);
+            haveData.setVisibility(View.VISIBLE);
+        }
+        if(RV2_LENGTH==0){
+            LL2.setVisibility(View.GONE);
+        }
+        if(RV3_LENGTH==0){
+            LL3.setVisibility(View.GONE);
+        }
+//        若有两个集合有数据，则随机显示一个集合的数据
+        if(RV_LENGTH!=0&&RV2_LENGTH!=0){
+            Random random = new Random();
+            int i = random.nextInt(2);
+            switch (i){
+                case 0:
+                    LL2.setVisibility(View.GONE);
+                    LL.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    LL.setVisibility(View.GONE);
+                    LL2.setVisibility(View.VISIBLE);
+                    break;
+
+                    default:
+                        break;
+            }
+
+        }
+        if(RV_LENGTH!=0&&RV3_LENGTH!=0){
+            Random random = new Random();
+            int i = random.nextInt(2);
+            switch (i){
+                case 0:
+                    LL3.setVisibility(View.GONE);
+                    LL.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    LL.setVisibility(View.GONE);
+                    LL3.setVisibility(View.VISIBLE);
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+        if(RV2_LENGTH!=0&&RV3_LENGTH!=0){
+            Random random = new Random();
+            int i = random.nextInt(2);
+            switch (i){
+                case 0:
+                    LL2.setVisibility(View.GONE);
+                    LL3.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    LL3.setVisibility(View.GONE);
+                    LL2.setVisibility(View.VISIBLE);
+                    break;
+
+                default:
+                    break;
+            }
         }
 //        若三个推荐的结果集都有数据，则随机显示一个集合的数据
         if(RV_LENGTH!=0&&RV2_LENGTH!=0&&RV3_LENGTH!=0) {

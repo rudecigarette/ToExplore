@@ -9,7 +9,6 @@ public class Store {
         StoreInfo = storeInfo;
         ResourceId = resourceId;
     }
-
     public String getStoreName() {
         return StoreName;
     }

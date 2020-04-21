@@ -2,6 +2,7 @@ package com.example.materialtest.utils;
 
 
 import com.baidu.mapapi.common.SysOSUtil;
+import com.example.materialtest.activities.MainActivity;
 import com.example.materialtest.activities.StoreActivity;
 import com.example.materialtest.fragment.FirstFragment;
 import com.example.materialtest.models.Share;
@@ -27,6 +28,7 @@ public class MysqlUtil {
     public static String shopname;
     public static int click;
     public static String Collection = null;
+    public static String buy = null;
     public static String lookshop = null;
     public static int UserId;
     public static int UserId2;
@@ -436,5 +438,46 @@ public class MysqlUtil {
                 }}}).start();
 
 
+    }
+    public static void buyOneStore(final String StoreName, final String Username){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(conn == null) return;
+                    PreparedStatement sql = conn.prepareStatement("select buyshop from cumstomer where phone = ?");
+                    sql.setString(1,Username);
+                    ResultSet resultSet = sql.executeQuery();
+                    while(resultSet.next()){
+                        buy = resultSet.getString("buyshop");
+                    }
+                    buy+="|"+StoreName+",";
+                    sql = conn.prepareStatement("update cumstomer set buyshop = ? where phone = ?");
+                    sql.setString(1,buy);
+                    sql.setString(2,Username);
+                    sql.executeUpdate();
+                    System.out.println("buy数据增添完毕！"+ buy);
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
+    }
+    public static void getUserLabel(final String UserPhone){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(conn==null) return;
+                    PreparedStatement sql=conn.prepareStatement("select label from cumstomer where phone = ?");
+                    sql.setString(1,UserPhone);
+                    ResultSet res=sql.executeQuery();
+
+                    while (res.next()) {
+                        MainActivity.UserLabel = res.getString("label");
+                    }
+
+                    System.out.println("userLabel数据更新完毕！"+MainActivity.UserLabel);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }}}).start();
     }
 }

@@ -39,12 +39,9 @@ public class CollectionActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(2);
         final List<Fragment> fragments = new ArrayList<>();
         fragments.add(new CollectStoreFragment());
-        fragments.add(new CollectFindFragment());
-        fragments.add(new CollectOtherFragment());
         final List<String> titles = new ArrayList<>();
         titles.add("商家");
-        titles.add("发现");
-        titles.add("其它");
+
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
