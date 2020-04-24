@@ -11,7 +11,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="150dp"
         android:layout_height="180dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         app:cardBackgroundColor="@color/lineColor"
         app:cardCornerRadius="10dp"
@@ -28,9 +28,8 @@
     <android.support.v7.widget.CardView
         android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_marginBottom="10dp"
         app:cardCornerRadius="10dp"
-        android:layout_height="150dp">
+        android:layout_height="130dp">
         <LinearLayout
             android:layout_gravity="left"
             android:layout_marginLeft="@dimen/marginsize"
@@ -55,23 +54,7 @@
                 android:text="商家类型"
                 android:textColor="#7a7a7a" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_gravity="right"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="match_parent"
-                android:gravity="right"
-                android:id="@+id/storescore"
-                android:layout_gravity="center_vertical|bottom"
-                android:layout_marginBottom="5dp"
-                android:text="4.7分"
-                android:layout_marginRight="@dimen/marginsize"
-                android:textColor="#FAA732"
-                android:textSize="15sp"
-                android:layout_height="wrap_content">
-            </TextView>
-        </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
 </LinearLayout>

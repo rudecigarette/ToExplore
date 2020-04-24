@@ -16,21 +16,20 @@ import com.example.materialtest.models.Store;
 
 import java.util.ArrayList;
 
-public class ThirdFragmentRVadapter extends RecyclerView.Adapter<ThirdFragmentRVadapter.MyViewHolder>{
+public class CollectionRvAdapter extends RecyclerView.Adapter<CollectionRvAdapter.MyViewHolder>{
     public Context mContext;
     public ArrayList<Store> Recommdstores= new ArrayList<>();
     public void setStores(ArrayList<Store> Recommdstores){
         this.Recommdstores = Recommdstores;
     }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mContext == null) {
             mContext = parent.getContext();
         }
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.cell_thirdfragmentrv,parent,false);
-        return new ThirdFragmentRVadapter.MyViewHolder(itemView);
+        View itemView = layoutInflater.inflate(R.layout.cell_collectionrv,parent,false);
+        return new CollectionRvAdapter.MyViewHolder(itemView);
     }
 
     @Override
@@ -39,7 +38,6 @@ public class ThirdFragmentRVadapter extends RecyclerView.Adapter<ThirdFragmentRV
         holder.StorenametextView.setText(store.getStoreName());
         holder.StorelabeltextView.setText(store.getStoreInfo());
         holder.StoreimageView.setImageResource(store.getResourceId());
-        holder.StoreScore.setText("★"+"  "+store.getStoreScore()+" "+"分");
         Glide.with(holder.itemView.getContext()).load(store.getResourceId()).into(holder.StoreimageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +51,7 @@ public class ThirdFragmentRVadapter extends RecyclerView.Adapter<ThirdFragmentRV
 
     @Override
     public int getItemCount() {
-        return Recommdstores.size();
+            return Recommdstores.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -66,8 +64,6 @@ public class ThirdFragmentRVadapter extends RecyclerView.Adapter<ThirdFragmentRV
             StoreimageView = itemView.findViewById(R.id.bStoreimageView);
             StorenametextView = itemView.findViewById(R.id.bStorenametextView);
             StorelabeltextView = itemView.findViewById(R.id.bStorelabeltextView);
-            StoreScore = itemView.findViewById(R.id.storescore);
         }
     }
-
 }

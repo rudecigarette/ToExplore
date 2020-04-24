@@ -10,14 +10,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.materialtest.R;
 import com.example.materialtest.activities.MainActivity;
+import com.example.materialtest.adapter.CollectionRvAdapter;
 import com.example.materialtest.adapter.RecommdListAdapter;
 import com.example.materialtest.adapter.ThirdFragmentRVadapter;
 import com.example.materialtest.models.Store;
 import com.example.materialtest.utils.MysqlUtil;
 import com.example.materialtest.utils.ReadtxtUtil;
+
+import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.lang.reflect.Array;
@@ -32,7 +36,7 @@ public class CollectStoreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_collection, container, false);
         recyclerView = view.findViewById(R.id.collection_fragment_recycleview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        ThirdFragmentRVadapter thirdFragmentRVadapter = new ThirdFragmentRVadapter();
+        CollectionRvAdapter thirdFragmentRVadapter = new CollectionRvAdapter();
         System.out.println("changde"+collectedstores.size());
         thirdFragmentRVadapter.setStores(collectedstores);
         thirdFragmentRVadapter.notifyDataSetChanged();
@@ -46,6 +50,7 @@ public class CollectStoreFragment extends Fragment {
         String storeName = "";
         String storeInfo = "";
         String storePic = "";
+        String storeScore="";
         int resourceId;
         List<String> data = ReadtxtUtil.getString(inputStream);
         Context ctx = getContext();
@@ -55,14 +60,15 @@ public class CollectStoreFragment extends Fragment {
             storeName = data.get(i).split(",")[1];
             storeInfo = data.get(i).split(",")[3];
             storePic = data.get(i).split(",")[4];
+            storeScore = data.get(i).split(",")[2];
             resourceId = getResources().getIdentifier(storePic, "drawable", ctx.getPackageName());
-            Store store = new Store(storeName, storeInfo, resourceId);
+            Store store = new Store(storeName, storeInfo, resourceId,storeScore);
             stores.add(store);
         }
         collectedstores.clear();
         String userCollection = MysqlUtil.Collection;
         System.out.println("ThirdFragment获取到的collection为"+userCollection);
-        if(userCollection.equals("")||userCollection==null) return;
+        if(userCollection==null||userCollection.equals("")) return;
         String[] collected = userCollection.split(",|\\|");
         ArrayList<String> collected2 = new ArrayList<>();
         int j=0;

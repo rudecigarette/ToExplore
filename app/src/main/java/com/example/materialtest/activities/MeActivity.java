@@ -37,9 +37,9 @@ public class MeActivity extends BaseActivity {
         usersignature = findViewById(R.id.Usersignature);
 
         useraccount.append(UserHelp.getInstance().getPhone());
-        username.append("安德鲁：加菲");
+        username.append("18软工");
         usersex.append("男");
-        usersignature.append("lmsove");
+        usersignature.append("华南师范大学软件学院");
 
 
         StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary));

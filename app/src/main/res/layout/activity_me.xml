@@ -53,17 +53,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/itemHeight"
         android:layout_marginTop="@dimen/marginsize"
-        android:text="编辑信息"
-        android:gravity="center"
-        android:textSize="@dimen/info_size"
-        android:layout_gravity="center"
-        android:onClick="onEditClick"
-        android:background="@drawable/commit_item_select"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/itemHeight"
-        android:layout_marginTop="@dimen/marginsize"
         android:text="修改密码"
         android:gravity="center"
         android:textSize="@dimen/info_size"

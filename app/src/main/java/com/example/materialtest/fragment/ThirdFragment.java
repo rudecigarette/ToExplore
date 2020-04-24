@@ -44,6 +44,7 @@ public class ThirdFragment extends Fragment {
         String storeName = "";
         String storeInfo = "";
         String storePic = "";
+        String storeScore="";
         int resourceId;
         List<String> data = ReadtxtUtil.getString(inputStream);
         Context ctx = getContext();
@@ -52,9 +53,10 @@ public class ThirdFragment extends Fragment {
         for (int i = 0; i < data.size(); i++) {
             storeName = data.get(i).split(",")[1];
             storeInfo = data.get(i).split(",")[3];
+            storeScore = data.get(i).split(",")[2];
             storePic = data.get(i).split(",")[4];
             resourceId = getResources().getIdentifier(storePic, "drawable", ctx.getPackageName());
-            Store store = new Store(storeName, storeInfo, resourceId);
+            Store store = new Store(storeName, storeInfo,resourceId,storeScore);
             stores.add(store);
         }
         thirdstores.clear();
@@ -67,7 +69,7 @@ public class ThirdFragment extends Fragment {
         System.out.println("ThirdFragment获取到的userlabel为"+userLabel);
         for(int i=0;i<stores.size();i++){
             if(userLabel.indexOf(stores.get(i).getStoreInfo())!=-1){
-                thirdstores.add(new Store(stores.get(i).getStoreName(),stores.get(i).getStoreInfo(),stores.get(i).getResourceId()));
+                thirdstores.add(new Store(stores.get(i).getStoreName(),stores.get(i).getStoreInfo(),stores.get(i).getResourceId(),stores.get(i).getStoreScore()));
             }
         }
     }
