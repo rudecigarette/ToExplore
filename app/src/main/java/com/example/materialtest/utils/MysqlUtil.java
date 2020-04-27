@@ -194,13 +194,14 @@ public class MysqlUtil {
         }).start();
     }
     public static void getAllPhoneAndPassword(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                conn = getConnection("shop");
-            }
-        }).start();
-
+        if(conn==null){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    conn = getConnection("shop");
+                }
+            }).start();
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -209,22 +210,27 @@ public class MysqlUtil {
                     if(conn == null) return;
                     PreparedStatement sql = conn.prepareStatement("select phone from cumstomer");
                     ResultSet res = sql.executeQuery();
+                    allPhones.clear();
                     while (res.next()) {
                         allPhones.add(res.getString(1));
                     }
                     System.out.println("allPhones数据初始化完毕！");
-
+                    System.out.println(allPhones.size());
                     sql = conn.prepareStatement("select password from cumstomer");
                     res = sql.executeQuery();
+                    allPasswords.clear();
                     while (res.next()) {
                         allPasswords.add(res.getString(1));
                     }
                     System.out.println("allPasswords数据初始化完毕！");
+                    System.out.println(allPasswords.size());
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }}}).start();
+
     }
     public static boolean validateUserInfo(final String phone , final String password){
         boolean result = false;
